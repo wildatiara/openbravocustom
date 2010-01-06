@@ -86,7 +86,7 @@ public class ProductsEditor extends JPanel implements EditorRecord {
         attmodel = new ComboBoxValModel();
 
         // The pieces model
-        piesent = dlSales.getPiecesSetList();
+        piesent = dlSales.getPiecesList();
         piemodel = new ComboBoxValModel();
         
         m_CodetypeModel = new ComboBoxValModel();
@@ -141,7 +141,6 @@ public class ProductsEditor extends JPanel implements EditorRecord {
         m_jAtt.setModel(attmodel);
 
         piemodel = new ComboBoxValModel(piesent.list());
-        piemodel.add(0, null);
         m_jpieces.setModel(piemodel);
     }
     
@@ -162,7 +161,7 @@ public class ProductsEditor extends JPanel implements EditorRecord {
         m_CategoryModel.setSelectedKey(null);
         taxcatmodel.setSelectedKey(null);
         attmodel.setSelectedKey(null);
-        piemodel.setSelectedItem(null);
+        piemodel.setSelectedKey(null);
         m_jPriceBuy.setText(null);
         setPriceSell(null);         
         m_jImage.setImage(null);
@@ -211,7 +210,7 @@ public class ProductsEditor extends JPanel implements EditorRecord {
         m_CategoryModel.setSelectedKey(null);
         taxcatmodel.setSelectedKey(null);
         attmodel.setSelectedKey(null);
-        piemodel.setSelectedItem(null);
+        piemodel.setSelectedKey(null);
         m_jPriceBuy.setText(null);
         setPriceSell(null);                     
         m_jImage.setImage(null);
@@ -268,7 +267,7 @@ public class ProductsEditor extends JPanel implements EditorRecord {
         m_jInCatalog.setSelected(((Boolean)myprod[14]).booleanValue());
         m_jCatalogOrder.setText(Formats.INT.formatValue(myprod[15]));
         txtAttributes.setText(Formats.BYTEA.formatValue(myprod[16]));
-        piemodel.setSelectedItem(myprod[17]);
+        piemodel.setSelectedKey(myprod[17]);
         txtAttributes.setCaretPosition(0);
         reportlock = false;
         
@@ -319,7 +318,7 @@ public class ProductsEditor extends JPanel implements EditorRecord {
         m_jInCatalog.setSelected(((Boolean)myprod[14]).booleanValue());
         m_jCatalogOrder.setText(Formats.INT.formatValue(myprod[15]));
         txtAttributes.setText(Formats.BYTEA.formatValue(myprod[16]));
-        piemodel.setSelectedItem(myprod[17]);
+        piemodel.setSelectedKey(myprod[17]);
         txtAttributes.setCaretPosition(0);
         reportlock = false;
         
@@ -368,7 +367,7 @@ public class ProductsEditor extends JPanel implements EditorRecord {
         myprod[14] = Boolean.valueOf(m_jInCatalog.isSelected());
         myprod[15] = Formats.INT.parseValue(m_jCatalogOrder.getText());
         myprod[16] = Formats.BYTEA.parseValue(txtAttributes.getText());
-        myprod[17] = piemodel.getSelectedItem();
+        myprod[17] = piemodel.getSelectedKey();
         
         return myprod;
     }    

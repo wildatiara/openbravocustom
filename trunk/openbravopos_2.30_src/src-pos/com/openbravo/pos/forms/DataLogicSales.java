@@ -37,6 +37,7 @@ import com.openbravo.pos.inventory.AttributeSetInfo;
 import com.openbravo.pos.inventory.TaxCustCategoryInfo;
 import com.openbravo.pos.inventory.LocationInfo;
 import com.openbravo.pos.inventory.MovementReason;
+import com.openbravo.pos.inventory.PiecesInfo;
 import com.openbravo.pos.inventory.TaxCategoryInfo;
 import com.openbravo.pos.mant.FloorsInfo;
 import com.openbravo.pos.payment.PaymentInfo;
@@ -253,12 +254,12 @@ public class DataLogicSales extends BeanFactoryDataSingle {
                 return new AttributeSetInfo(dr.getString(1), dr.getString(2));
             }});
     }
-    public final SentenceList getPiecesSetList() {
+    public final SentenceList getPiecesList() {
          return new StaticSentence(s
             , "SELECT ID, NAME FROM PIECES ORDER BY NAME"
             , null
             , new SerializerRead() { public Object readValues(DataRead dr) throws BasicException {
-                return new PiecesSetInfo(dr.getString(1), dr.getString(2));
+                return new PiecesInfo(dr.getString(1), dr.getString(2));
             }});
     }
     public final SentenceList getLocationsList() {
