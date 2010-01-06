@@ -140,9 +140,9 @@ public class ProductsEditor extends JPanel implements EditorRecord {
         attmodel.add(0, null);
         m_jAtt.setModel(attmodel);
 
-        /*piemodel = new ComboBoxValModel(piesent.list());
+        piemodel = new ComboBoxValModel(piesent.list());
         piemodel.add(0, null);
-        m_jpieces.setModel(piemodel);*/
+        m_jpieces.setModel(piemodel);
     }
     
     public void refresh() {
@@ -162,6 +162,7 @@ public class ProductsEditor extends JPanel implements EditorRecord {
         m_CategoryModel.setSelectedKey(null);
         taxcatmodel.setSelectedKey(null);
         attmodel.setSelectedKey(null);
+        piemodel.setSelectedItem(null);
         m_jPriceBuy.setText(null);
         setPriceSell(null);         
         m_jImage.setImage(null);
@@ -210,6 +211,7 @@ public class ProductsEditor extends JPanel implements EditorRecord {
         m_CategoryModel.setSelectedKey(null);
         taxcatmodel.setSelectedKey(null);
         attmodel.setSelectedKey(null);
+        piemodel.setSelectedItem(null);
         m_jPriceBuy.setText(null);
         setPriceSell(null);                     
         m_jImage.setImage(null);
@@ -266,7 +268,7 @@ public class ProductsEditor extends JPanel implements EditorRecord {
         m_jInCatalog.setSelected(((Boolean)myprod[14]).booleanValue());
         m_jCatalogOrder.setText(Formats.INT.formatValue(myprod[15]));
         txtAttributes.setText(Formats.BYTEA.formatValue(myprod[16]));
-        m_jpieces.setSelectedItem(myprod[17]);
+        piemodel.setSelectedItem(myprod[17]);
         txtAttributes.setCaretPosition(0);
         reportlock = false;
         
@@ -279,7 +281,7 @@ public class ProductsEditor extends JPanel implements EditorRecord {
         m_jCategory.setEnabled(false);
         m_jTax.setEnabled(false);
         m_jAtt.setEnabled(false);
-        m_jpieces.setSelectedItem(null);
+        m_jpieces.setEnabled(false);
         m_jPriceBuy.setEnabled(false);
         m_jPriceSell.setEnabled(false);
         m_jPriceSellTax.setEnabled(false);
@@ -317,7 +319,7 @@ public class ProductsEditor extends JPanel implements EditorRecord {
         m_jInCatalog.setSelected(((Boolean)myprod[14]).booleanValue());
         m_jCatalogOrder.setText(Formats.INT.formatValue(myprod[15]));
         txtAttributes.setText(Formats.BYTEA.formatValue(myprod[16]));
-        m_jpieces.setSelectedItem(myprod[17]);
+        piemodel.setSelectedItem(myprod[17]);
         txtAttributes.setCaretPosition(0);
         reportlock = false;
         
@@ -330,6 +332,7 @@ public class ProductsEditor extends JPanel implements EditorRecord {
         m_jCategory.setEnabled(true);
         m_jTax.setEnabled(true);
         m_jAtt.setEnabled(true);
+        m_jpieces.setEnabled(true);
         m_jPriceBuy.setEnabled(true);
         m_jPriceSell.setEnabled(true); 
         m_jPriceSellTax.setEnabled(true);
@@ -365,7 +368,7 @@ public class ProductsEditor extends JPanel implements EditorRecord {
         myprod[14] = Boolean.valueOf(m_jInCatalog.isSelected());
         myprod[15] = Formats.INT.parseValue(m_jCatalogOrder.getText());
         myprod[16] = Formats.BYTEA.parseValue(txtAttributes.getText());
-        myprod[17] = m_jpieces.getSelectedItem();
+        myprod[17] = piemodel.getSelectedItem();
         
         return myprod;
     }    
