@@ -140,9 +140,9 @@ public class ProductsEditor extends JPanel implements EditorRecord {
         attmodel.add(0, null);
         m_jAtt.setModel(attmodel);
 
-        piemodel = new ComboBoxValModel(piesent.list());
+        /*piemodel = new ComboBoxValModel(piesent.list());
         piemodel.add(0, null);
-        m_jpieces.setModel(piemodel);
+        m_jpieces.setModel(piemodel);*/
     }
     
     public void refresh() {
