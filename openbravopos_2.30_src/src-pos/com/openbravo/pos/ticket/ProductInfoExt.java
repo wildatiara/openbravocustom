@@ -49,6 +49,7 @@ public class ProductInfoExt {
     protected double m_dPriceSell;
     protected BufferedImage m_Image;
     protected Properties attributes;
+    protected String m_jpieces;
     
     /** Creates new ProductInfo */
     public ProductInfoExt() {
@@ -65,6 +66,7 @@ public class ProductInfoExt {
         m_dPriceSell = 0.0;
         m_Image = null;
         attributes = new Properties();
+        m_jpieces = null;
     }
 
     public final String getID() {
@@ -202,6 +204,8 @@ public class ProductInfoExt {
             product.attributesetid = dr.getString(11);
             product.m_Image = ImageUtils.readImage(dr.getBytes(12));
             product.attributes = ImageUtils.readProperties(dr.getBytes(13));
+            product.m_jpieces = dr.getString(14);
+
             return product;
         }};
     }
