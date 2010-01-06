@@ -336,7 +336,7 @@ public class ProductsEditor extends JPanel implements EditorRecord {
 
     public Object createValue() throws BasicException {
         
-        Object[] myprod = new Object[17];
+        Object[] myprod = new Object[18];
         myprod[0] = m_id;
         myprod[1] = m_jRef.getText();
         myprod[2] = m_jCode.getText();
