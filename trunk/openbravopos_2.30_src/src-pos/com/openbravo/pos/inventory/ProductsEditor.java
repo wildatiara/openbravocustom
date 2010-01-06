@@ -86,7 +86,7 @@ public class ProductsEditor extends JPanel implements EditorRecord {
         attmodel = new ComboBoxValModel();
 
         // The pieces model
-        piesent = dlSales.getAttributeSetList();
+        piesent = dlSales.getPiecesSetList();
         piemodel = new ComboBoxValModel();
         
         m_CodetypeModel = new ComboBoxValModel();

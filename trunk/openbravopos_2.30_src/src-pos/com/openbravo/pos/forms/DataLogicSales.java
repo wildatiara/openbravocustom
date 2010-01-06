@@ -253,6 +253,14 @@ public class DataLogicSales extends BeanFactoryDataSingle {
                 return new AttributeSetInfo(dr.getString(1), dr.getString(2));
             }});
     }
+    public final SentenceList getPiecesSetList() {
+        return new StaticSentence(s
+            , "SELECT ID, PIECES FROM PRODUCTS ORDER BY PIECES"
+            , null
+            , new SerializerRead() { public Object readValues(DataRead dr) throws BasicException {
+                return new AttributeSetInfo(dr.getString(1), dr.getString(2));
+            }});
+    }
     public final SentenceList getLocationsList() {
         return new StaticSentence(s
             , "SELECT ID, NAME, ADDRESS FROM LOCATIONS ORDER BY NAME"
