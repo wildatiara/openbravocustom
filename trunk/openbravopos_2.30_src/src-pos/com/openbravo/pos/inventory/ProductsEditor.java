@@ -51,6 +51,9 @@ public class ProductsEditor extends JPanel implements EditorRecord {
 
     private SentenceList attsent;
     private ComboBoxValModel attmodel;
+
+    private SentenceList piesent;
+    private ComboBoxValModel piemodel;
     
     private SentenceList taxsent;
     private TaxesLogic taxeslogic;
@@ -81,6 +84,10 @@ public class ProductsEditor extends JPanel implements EditorRecord {
         // The attributes model
         attsent = dlSales.getAttributeSetList();
         attmodel = new ComboBoxValModel();
+
+        // The pieces model
+        piesent = dlSales.getAttributeSetList();
+        piemodel = new ComboBoxValModel();
         
         m_CodetypeModel = new ComboBoxValModel();
         m_CodetypeModel.add(null);
@@ -132,6 +139,10 @@ public class ProductsEditor extends JPanel implements EditorRecord {
         attmodel = new ComboBoxValModel(attsent.list());
         attmodel.add(0, null);
         m_jAtt.setModel(attmodel);
+
+        piemodel = new ComboBoxValModel(piesent.list());
+        piemodel.add(0, null);
+        m_jpieces.setModel(piemodel);
     }
     
     public void refresh() {
