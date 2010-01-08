@@ -691,7 +691,6 @@ public class ProductsEditor extends JPanel implements EditorRecord {
         jPanel1.add(jLabel15);
         jLabel15.setBounds(10, 230, 150, 14);
 
-        m_jpieces.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5" }));
         jPanel1.add(m_jpieces);
         m_jpieces.setBounds(160, 230, 170, 20);
 
