@@ -19,6 +19,8 @@
 
 package com.openbravo.pos.payment;
 
+import com.openbravo.basic.BasicException;
+import com.openbravo.beans.JCalendarDialog;
 import java.awt.Component;
 import java.awt.Dialog;
 import java.awt.Frame;
@@ -30,6 +32,7 @@ import com.openbravo.format.Formats;
 import com.openbravo.pos.customers.CustomerInfoExt;
 import com.openbravo.pos.forms.DataLogicSystem;
 import java.awt.ComponentOrientation;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -305,6 +308,10 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         jPanel1 = new javax.swing.JPanel();
         m_jButtonOK = new javax.swing.JButton();
         m_jButtonCancel = new javax.swing.JButton();
+        jPanel7 = new javax.swing.JPanel();
+        jTxtStartDate = new javax.swing.JTextField();
+        btnDateStart = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(AppLocal.getIntString("payment.title")); // NOI18N
@@ -314,7 +321,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         jPanel4.add(m_jLblTotalEuros1);
 
         m_jTotalEuros.setBackground(java.awt.Color.white);
-        m_jTotalEuros.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        m_jTotalEuros.setFont(new java.awt.Font("Dialog", 1, 14));
         m_jTotalEuros.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         m_jTotalEuros.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow")), javax.swing.BorderFactory.createEmptyBorder(1, 4, 1, 4)));
         m_jTotalEuros.setOpaque(true);
@@ -328,7 +335,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         jPanel6.add(m_jLblRemainingEuros);
 
         m_jRemaininglEuros.setBackground(java.awt.Color.white);
-        m_jRemaininglEuros.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        m_jRemaininglEuros.setFont(new java.awt.Font("Dialog", 1, 14));
         m_jRemaininglEuros.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         m_jRemaininglEuros.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createLineBorder(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow")), javax.swing.BorderFactory.createEmptyBorder(1, 4, 1, 4)));
         m_jRemaininglEuros.setOpaque(true);
@@ -410,10 +417,34 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
 
         jPanel5.add(jPanel2, java.awt.BorderLayout.LINE_END);
 
+        jPanel7.setPreferredSize(new java.awt.Dimension(0, 100));
+        jPanel7.setVerifyInputWhenFocusTarget(false);
+        jPanel7.setLayout(null);
+        jPanel7.add(jTxtStartDate);
+        jTxtStartDate.setBounds(120, 30, 150, 30);
+
+        btnDateStart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/date.png"))); // NOI18N
+        btnDateStart.setMaximumSize(new java.awt.Dimension(58, 42));
+        btnDateStart.setMinimumSize(new java.awt.Dimension(58, 42));
+        btnDateStart.setPreferredSize(new java.awt.Dimension(58, 42));
+        btnDateStart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDateStartActionPerformed(evt);
+            }
+        });
+        jPanel7.add(btnDateStart);
+        btnDateStart.setBounds(280, 0, 70, 90);
+
+        jLabel1.setText("Date Retour ");
+        jPanel7.add(jLabel1);
+        jLabel1.setBounds(10, 30, 80, 30);
+
+        jPanel5.add(jPanel7, java.awt.BorderLayout.CENTER);
+
         getContentPane().add(jPanel5, java.awt.BorderLayout.SOUTH);
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-672)/2, (screenSize.height-497)/2, 672, 497);
+        setBounds((screenSize.width-672)/2, (screenSize.height-500)/2, 672, 500);
     }// </editor-fold>//GEN-END:initComponents
 
     private void m_jButtonRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jButtonRemoveActionPerformed
@@ -457,14 +488,32 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         dispose();
         
     }//GEN-LAST:event_m_jButtonCancelActionPerformed
+
+    private void btnDateStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDateStartActionPerformed
+
+        Date date;
+        try {
+            date = (Date) Formats.TIMESTAMP.parseValue(jTxtStartDate.getText());
+        } catch (BasicException e) {
+            date = null;
+        }
+        date = JCalendarDialog.showCalendarTimeHours(this, date);
+        if (date != null) {
+            jTxtStartDate.setText(Formats.TIMESTAMP.formatValue(date));
+        }
+}//GEN-LAST:event_btnDateStartActionPerformed
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton btnDateStart;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    public javax.swing.JTextField jTxtStartDate;
     private javax.swing.JButton m_jButtonAdd;
     private javax.swing.JButton m_jButtonCancel;
     private javax.swing.JButton m_jButtonOK;
