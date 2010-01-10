@@ -104,6 +104,13 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
 
         m_jButtonPrint.setSelected(printselected);
         m_jTotalEuros.setText(Formats.CURRENCY.formatValue(new Double(m_dTotal)));
+ /* 
+  * TODO
+  * Récupérer la donnée du model datereturn, si elle n'existe pas, mettre null 
+  */
+        jReturnDate.setText(null);
+
+ //       m_jReturnDate.
         
         addTabs();
 
@@ -309,7 +316,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         m_jButtonOK = new javax.swing.JButton();
         m_jButtonCancel = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
-        jTxtStartDate = new javax.swing.JTextField();
+        jReturnDate = new javax.swing.JTextField();
         btnDateStart = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
@@ -420,8 +427,14 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         jPanel7.setPreferredSize(new java.awt.Dimension(0, 100));
         jPanel7.setVerifyInputWhenFocusTarget(false);
         jPanel7.setLayout(null);
-        jPanel7.add(jTxtStartDate);
-        jTxtStartDate.setBounds(120, 30, 150, 30);
+
+        jReturnDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jReturnDateActionPerformed(evt);
+            }
+        });
+        jPanel7.add(jReturnDate);
+        jReturnDate.setBounds(110, 30, 150, 30);
 
         btnDateStart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/date.png"))); // NOI18N
         btnDateStart.setMaximumSize(new java.awt.Dimension(58, 42));
@@ -433,11 +446,11 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
             }
         });
         jPanel7.add(btnDateStart);
-        btnDateStart.setBounds(280, 0, 70, 90);
+        btnDateStart.setBounds(20, 0, 80, 70);
 
         jLabel1.setText("Date Retour ");
         jPanel7.add(jLabel1);
-        jLabel1.setBounds(10, 30, 80, 30);
+        jLabel1.setBounds(110, 0, 80, 30);
 
         jPanel5.add(jPanel7, java.awt.BorderLayout.CENTER);
 
@@ -493,15 +506,19 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
 
         Date date;
         try {
-            date = (Date) Formats.TIMESTAMP.parseValue(jTxtStartDate.getText());
+            date = (Date) Formats.TIMESTAMP.parseValue(jReturnDate.getText());
         } catch (BasicException e) {
             date = null;
         }
         date = JCalendarDialog.showCalendarTimeHours(this, date);
         if (date != null) {
-            jTxtStartDate.setText(Formats.TIMESTAMP.formatValue(date));
+            jReturnDate.setText(Formats.TIMESTAMP.formatValue(date));
         }
 }//GEN-LAST:event_btnDateStartActionPerformed
+
+    private void jReturnDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jReturnDateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jReturnDateActionPerformed
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnDateStart;
@@ -513,7 +530,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    public javax.swing.JTextField jTxtStartDate;
+    private javax.swing.JTextField jReturnDate;
     private javax.swing.JButton m_jButtonAdd;
     private javax.swing.JButton m_jButtonCancel;
     private javax.swing.JButton m_jButtonOK;
