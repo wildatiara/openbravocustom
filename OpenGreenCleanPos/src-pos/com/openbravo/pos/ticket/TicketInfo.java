@@ -360,6 +360,34 @@ public class TicketInfo implements SerializableRead, Externalizable {
         m_aLines = l;
     }
 
+   // public List<TicketLineInfo> getLinesTickets() {
+  //      List<TicketLineInfo> newList = new ArrayList();
+
+    //    int nbTicket = 0;
+    //    TicketLineInfo oLine;
+//
+     //   for (Iterator<TicketLineInfo> i = m_aLines.iterator(); i.hasNext();) {
+     //       int cpt = 0;
+     //
+    //        oLine = i.next();
+    //        oLine.getProductAttSetInstDesc();
+    //        nbTicket += oLine.getMultiply();
+    //    }
+
+
+        /**
+         * TODO:
+         * Boucler sur m_aLines afin de lire chaque ligne et faire de newList une liste contenant tous les tickets nécessaires à l'impression 2
+         *
+         * ex: 2X article 2 pièces = 4 tickets !
+         */
+
+
+  //      return newList;
+
+ //  }
+
+
     public List<PaymentInfo> getPayments() {
         return payments;
     }
