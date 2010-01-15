@@ -360,15 +360,15 @@ public class TicketInfo implements SerializableRead, Externalizable {
         m_aLines = l;
     }
 
-   // public List<TicketLineInfo> getLinesTickets() {
-  //      List<TicketLineInfo> newList = new ArrayList();
+    // public List<TicketLineInfo> getLinesTickets() {
+    //      List<TicketLineInfo> newList = new ArrayList();
 
     //    int nbTicket = 0;
     //    TicketLineInfo oLine;
-//
-     //   for (Iterator<TicketLineInfo> i = m_aLines.iterator(); i.hasNext();) {
-     //       int cpt = 0;
-     //
+    //
+    //   for (Iterator<TicketLineInfo> i = m_aLines.iterator(); i.hasNext();) {
+    //       int cpt = 0;
+    //
     //        oLine = i.next();
     //        oLine.getProductAttSetInstDesc();
     //        nbTicket += oLine.getMultiply();
@@ -383,9 +383,9 @@ public class TicketInfo implements SerializableRead, Externalizable {
          */
 
 
-  //      return newList;
+    //      return newList;
 
- //  }
+    //  }
 
 
     public List<PaymentInfo> getPayments() {
