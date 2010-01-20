@@ -222,7 +222,7 @@ public class JRootApp extends JPanel implements AppView {
         } catch (SQLException e) {
             url = "";
         }        
-        m_jHost.setText("<html>" + m_props.getHost() + " - " + sWareHouse + "<br>" + url);
+//        m_jHost.setText("<html>" + m_props.getHost() + " - " + sWareHouse + "<br>" + url);
         
         showLogin();
 
@@ -483,8 +483,8 @@ public class JRootApp extends JPanel implements AppView {
             m_principalapp = new JPrincipalApp(this, user);
 
             // The user status notificator
-            jPanel3.add(m_principalapp.getNotificator());
-            jPanel3.revalidate();
+//            jPanel3.add(m_principalapp.getNotificator());
+//            jPanel3.revalidate();
             
             // The main panel
             m_jPanelContainer.add(m_principalapp, "_" + m_principalapp.getUser().getId());
@@ -502,9 +502,9 @@ public class JRootApp extends JPanel implements AppView {
             return false;
         } else {
             // the status label
-            jPanel3.remove(m_principalapp.getNotificator());
-            jPanel3.revalidate();
-            jPanel3.repaint();
+//            jPanel3.remove(m_principalapp.getNotificator());
+//            jPanel3.revalidate();
+//            jPanel3.repaint();
 
             // remove the card
             m_jPanelContainer.remove(m_principalapp);
@@ -581,10 +581,6 @@ public class JRootApp extends JPanel implements AppView {
         m_jClose = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         m_txtKeys = new javax.swing.JTextField();
-        m_jPanelDown = new javax.swing.JPanel();
-        panelTask = new javax.swing.JPanel();
-        m_jHost = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
 
         setPreferredSize(new java.awt.Dimension(800, 600));
         setLayout(new java.awt.BorderLayout());
@@ -665,18 +661,6 @@ public class JRootApp extends JPanel implements AppView {
         m_jPanelContainer.add(m_jPanelLogin, "login");
 
         add(m_jPanelContainer, java.awt.BorderLayout.CENTER);
-
-        m_jPanelDown.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 0, 0, 0, javax.swing.UIManager.getDefaults().getColor("Button.darkShadow")));
-        m_jPanelDown.setLayout(new java.awt.BorderLayout());
-
-        m_jHost.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/display.png"))); // NOI18N
-        m_jHost.setText("*Hostname");
-        panelTask.add(m_jHost);
-
-        m_jPanelDown.add(panelTask, java.awt.BorderLayout.LINE_START);
-        m_jPanelDown.add(jPanel3, java.awt.BorderLayout.LINE_END);
-
-        add(m_jPanelDown, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
 
 
@@ -699,18 +683,14 @@ public class JRootApp extends JPanel implements AppView {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton m_jClose;
-    private javax.swing.JLabel m_jHost;
     private javax.swing.JPanel m_jLogonName;
     private javax.swing.JPanel m_jPanelContainer;
-    private javax.swing.JPanel m_jPanelDown;
     private javax.swing.JPanel m_jPanelLogin;
     private javax.swing.JTextField m_txtKeys;
-    private javax.swing.JPanel panelTask;
     // End of variables declaration//GEN-END:variables
 }
