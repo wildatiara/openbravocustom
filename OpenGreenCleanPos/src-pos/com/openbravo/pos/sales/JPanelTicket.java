@@ -1231,7 +1231,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
         btnCustomer.setFocusPainted(false);
         btnCustomer.setFocusable(false);
         btnCustomer.setMargin(new java.awt.Insets(8, 14, 8, 14));
-        btnCustomer.setPreferredSize(new java.awt.Dimension(35, 25));
+        btnCustomer.setPreferredSize(new java.awt.Dimension(56, 44));
         btnCustomer.setRequestFocusEnabled(false);
         btnCustomer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1244,7 +1244,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
         btnSplit.setFocusPainted(false);
         btnSplit.setFocusable(false);
         btnSplit.setMargin(new java.awt.Insets(8, 14, 8, 14));
-        btnSplit.setPreferredSize(new java.awt.Dimension(35, 25));
+        btnSplit.setPreferredSize(new java.awt.Dimension(56, 44));
         btnSplit.setRequestFocusEnabled(false);
         btnSplit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
