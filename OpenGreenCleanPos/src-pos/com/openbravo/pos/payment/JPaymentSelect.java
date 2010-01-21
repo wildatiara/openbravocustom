@@ -25,6 +25,8 @@ import java.awt.Component;
 import java.awt.Dialog;
 import java.awt.Frame;
 import java.awt.Window;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import com.openbravo.pos.forms.AppView;
 import com.openbravo.pos.forms.AppLocal;
@@ -32,6 +34,7 @@ import com.openbravo.format.Formats;
 import com.openbravo.pos.customers.CustomerInfoExt;
 import com.openbravo.pos.forms.DataLogicSystem;
 import java.awt.ComponentOrientation;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -57,7 +60,8 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
     private Map<String, JPaymentInterface> payments = new HashMap<String, JPaymentInterface>();
     private String m_sTransactionID;
     
-    
+    private static Logger logger = Logger.getLogger("com.openbravo.data.loader.PreparedSentence");
+
     /** Creates new form JPaymentSelect */
     protected JPaymentSelect(java.awt.Frame parent, boolean modal, ComponentOrientation o) {
         super(parent, modal);
@@ -434,7 +438,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
             }
         });
         jPanel7.add(jReturnDate);
-        jReturnDate.setBounds(110, 30, 150, 30);
+        jReturnDate.setBounds(110, 30, 180, 30);
 
         btnDateStart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/date.png"))); // NOI18N
         btnDateStart.setMaximumSize(new java.awt.Dimension(58, 42));
@@ -446,7 +450,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
             }
         });
         jPanel7.add(btnDateStart);
-        btnDateStart.setBounds(20, 0, 80, 70);
+        btnDateStart.setBounds(20, 10, 80, 50);
 
         jLabel1.setText("Date Retour ");
         jPanel7.add(jLabel1);
@@ -510,6 +514,25 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         } catch (BasicException e) {
             date = null;
         }
+
+        if (date == null) {
+
+                Calendar cal = Calendar.getInstance();
+                Date tomorrow = new Date();
+
+
+                cal.setTime(new Date(tomorrow.getYear(),tomorrow.getMonth(),tomorrow.getDate()));
+                cal.add(Calendar.DATE, 1);
+                if (cal.DAY_OF_WEEK == cal.SUNDAY)
+                   cal.add(Calendar.DATE, 1);
+
+                cal.setTimeInMillis(cal.getTimeInMillis()+57600000);
+                
+                date = (Date) cal.getTime();
+
+           
+        } 
+
         date = JCalendarDialog.showCalendarTimeHours(this, date);
         if (date != null) {
             jReturnDate.setText(Formats.TIMESTAMP.formatValue(date));
