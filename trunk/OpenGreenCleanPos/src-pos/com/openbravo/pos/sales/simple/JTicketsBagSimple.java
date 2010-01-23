@@ -75,7 +75,7 @@ public class JTicketsBagSimple extends JTicketsBag {
         m_jDelTicket.setFocusPainted(false);
         m_jDelTicket.setFocusable(false);
         m_jDelTicket.setMargin(new java.awt.Insets(8, 14, 8, 14));
-        m_jDelTicket.setPreferredSize(new java.awt.Dimension(56, 25));
+        m_jDelTicket.setPreferredSize(new java.awt.Dimension(56, 40));
         m_jDelTicket.setRequestFocusEnabled(false);
         m_jDelTicket.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
