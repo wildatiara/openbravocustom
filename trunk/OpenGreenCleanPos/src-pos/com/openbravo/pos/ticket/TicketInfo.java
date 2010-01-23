@@ -31,6 +31,7 @@ import com.openbravo.data.loader.LocalRes;
 import com.openbravo.pos.customers.CustomerInfoExt;
 import com.openbravo.pos.payment.PaymentInfoMagcard;
 import com.openbravo.pos.util.StringUtils;
+import java.util.logging.Logger;
 
 /**
  *
@@ -360,32 +361,46 @@ public class TicketInfo implements SerializableRead, Externalizable {
         m_aLines = l;
     }
 
-    // public List<TicketLineInfo> getLinesTickets() {
-    //      List<TicketLineInfo> newList = new ArrayList();
+    /*
+     *Méthode qui retourne une liste de ticket
+     *
+     */
+     public List<TicketLineInfo> getLinesTickets() {
+          List<TicketLineInfo> newList = new ArrayList();
 
-    //    int nbTicket = 0;
-    //    TicketLineInfo oLine;
-    //
-    //   for (Iterator<TicketLineInfo> i = m_aLines.iterator(); i.hasNext();) {
-    //       int cpt = 0;
-    //
-    //        oLine = i.next();
-    //        oLine.getProductAttSetInstDesc();
-    //        nbTicket += oLine.getMultiply();
-    //    }
+        TicketLineInfo oLine;
+        double cpt;
 
+         for (Iterator<TicketLineInfo> i = m_aLines.iterator(); i.hasNext();) {
 
-        /**
-         * TODO:
-         * Boucler sur m_aLines afin de lire chaque ligne et faire de newList une liste contenant tous les tickets nécessaires à l'impression 2
-         *
-         * ex: 2X article 2 pièces = 4 tickets !
-         */
+             cpt = 0;
+             oLine = i.next();
 
+             if (oLine.getTaxInfo().getName().compareTo("Tax Pressing") == 0) {
+                  cpt = oLine.getMultiply();
 
-    //      return newList;
+                 if ( !(oLine.getProductAttSetInstId()==null)) {
 
-    //  }
+                     String att = oLine.getProductAttSetInstDesc();
+
+                     if(
+                          att.substring(0,1).matches("[1-9]")
+                          && att.substring(1).matches(" Pieces")
+                          && (att.length() == "2 Pieces".length())
+                          ){
+                         cpt *= Integer.parseInt(att.substring(0,1));
+                     }
+                 }
+
+                 for (int j = 0; j < cpt; j++) {
+
+                     newList.add(oLine);
+
+                 }
+             }
+         }
+        return newList;
+     }
 
 
     public List<PaymentInfo> getPayments() {
