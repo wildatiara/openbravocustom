@@ -282,7 +282,7 @@
 
 
 
-
+#foreach ($ticketline in $ticket.getLinesTickets())
 
     <ticket printer="2">
         <line></line>
@@ -301,31 +301,28 @@
             <text>${ticket.getCustomer().printTaxid()}</text>
         </line>
         #end
-        <line></line>
-        #foreach ($ticketline in $ticket.getLines())
+
         <line>
             #if ($ticketline.isProductCom())
                 <text align ="left" length="13">*${ticketline.printName()}</text>
-                <text align ="right" length="10">${ticketline.productAttSetInstDesc}</text>
             #else
                 <text align ="left" length="13">${ticketline.printName()}</text>
             #end
-            <text align ="right" length="5">${ticketline.productAttSetInstDesc}</text>
+            <text align ="left" length="29">${ticketline.productAttSetInstDesc}</text>
         </line>
-        #if ($ticketline.productAttSetInstId)
-        <line>
-	        <text align ="left" length="42">    ${ticketline.productAttSetInstDesc}</text>
-        </line>
-        #end
-        #end
+
+
 
     </ticket>
+<cutreceipt/>
+            #end
     #foreach ($paymentline in $ticket.payments)      
      #if ($paymentline.name == "cash")
     <opendrawer/>
      #end
      #if ($paymentline.name == "cashrefund")
     <opendrawer/>
+
      #end  
     #end
 </output>
