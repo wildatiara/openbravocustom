@@ -295,7 +295,7 @@ public class DataLogicSales extends BeanFactoryDataSingle {
 
     public final TicketInfo loadTicket(final int tickettype, final int ticketid) throws BasicException {
         TicketInfo ticket = (TicketInfo) new PreparedSentence(s
-                , "SELECT T.ID, T.TICKETTYPE, T.TICKETID, R.DATENEW, R.MONEY, R.ATTRIBUTES, P.ID, P.NAME, T.CUSTOMER FROM RECEIPTS R JOIN TICKETS T ON R.ID = T.ID LEFT OUTER JOIN PEOPLE P ON T.PERSON = P.ID WHERE T.TICKETTYPE = ? AND T.TICKETID = ?"
+                , "SELECT T.ID, T.TICKETTYPE, T.TICKETID, R.DATENEW, R.MONEY, R.ATTRIBUTES, P.ID, P.NAME, T.CUSTOMER, T.DATERETURN FROM RECEIPTS R JOIN TICKETS T ON R.ID = T.ID LEFT OUTER JOIN PEOPLE P ON T.PERSON = P.ID WHERE T.TICKETTYPE = ? AND T.TICKETID = ?"
                 , SerializerWriteParams.INSTANCE
                 , new SerializerReadClass(TicketInfo.class))
                 .find(new DataParams() { public void writeValues() throws BasicException {
@@ -363,7 +363,7 @@ public class DataLogicSales extends BeanFactoryDataSingle {
 
                 // new ticket
                 new PreparedSentence(s
-                    , "INSERT INTO TICKETS (ID, TICKETTYPE, TICKETID, PERSON, CUSTOMER) VALUES (?, ?, ?, ?, ?)"
+                    , "INSERT INTO TICKETS (ID, TICKETTYPE, TICKETID, PERSON, CUSTOMER, DATERETURN) VALUES (?, ?, ?, ?, ?, ?)"
                     , SerializerWriteParams.INSTANCE
                     ).exec(new DataParams() { public void writeValues() throws BasicException {
                         setString(1, ticket.getId());
@@ -371,6 +371,7 @@ public class DataLogicSales extends BeanFactoryDataSingle {
                         setInt(3, ticket.getTicketId());
                         setString(4, ticket.getUser().getId());
                         setString(5, ticket.getCustomerId());
+                        setTimestamp(6, ticket.getrDate());
                     }});
 
                 SentenceExec ticketlineinsert = new PreparedSentence(s

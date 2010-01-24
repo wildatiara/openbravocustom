@@ -495,7 +495,7 @@ public class CustomersPayment extends javax.swing.JPanel implements JPanelView, 
 
         paymentdialog.setPrintSelected(true);
         
-        if (paymentdialog.showDialog(customerext.getCurdebt(), null)) {
+        if (paymentdialog.showDialog(customerext.getCurdebt(), null, null)) {
 
             // Save the ticket
             TicketInfo ticket = new TicketInfo();
@@ -516,6 +516,7 @@ public class CustomersPayment extends javax.swing.JPanel implements JPanelView, 
             ticket.setActiveCash(app.getActiveCashIndex());
             ticket.setDate(new Date());
             ticket.setCustomer(customerext);
+            ticket.setrDate(paymentdialog.getrDate());
 
             try {
                 dlsales.saveTicket(ticket, app.getInventoryLocation());
