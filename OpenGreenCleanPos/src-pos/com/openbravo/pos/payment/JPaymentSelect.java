@@ -53,7 +53,13 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
     private boolean accepted;
     
     private AppView app;
-    private double m_dTotal; 
+    private double m_dTotal;
+    private Date m_rDate;
+
+    public Date getrDate(){
+        return m_rDate;
+    }
+
     private CustomerInfoExt customerext;
     private DataLogicSystem dlSystem;
     
@@ -97,12 +103,13 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         return m_aPaymentInfo.getPayments();
     }
             
-    public boolean showDialog(double total, CustomerInfoExt customerext) {
+    public boolean showDialog(double total, CustomerInfoExt customerext, Date datereturn) {
         
         m_aPaymentInfo = new PaymentInfoList();
         accepted = false;
         
         m_dTotal = total;
+        m_rDate = datereturn;
         
         this.customerext = customerext;        
 
@@ -112,7 +119,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
   * TODO
   * Récupérer la donnée du model datereturn, si elle n'existe pas, mettre null 
   */
-        jReturnDate.setText(null);
+        jReturnDate.setText(Formats.TIMESTAMP.formatValue(datereturn));
 
  //       m_jReturnDate.
         
@@ -273,7 +280,9 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         m_jRemaininglEuros.setText(Formats.CURRENCY.formatValue(new Double(m_dTotal - m_aPaymentInfo.getTotal())));
         m_jButtonRemove.setEnabled(!m_aPaymentInfo.isEmpty());
         m_jTabPayment.setSelectedIndex(0); // selecciono el primero
-        ((JPaymentInterface) m_jTabPayment.getSelectedComponent()).activate(customerext, m_dTotal - m_aPaymentInfo.getTotal(), m_sTransactionID);
+        ((JPaymentInterface) m_jTabPayment.getSelectedComponent()).activate(customerext, m_dTotal - m_aPaymentInfo.getTotal(), m_sTransactionID);      
+        jReturnDate.setText(Formats.TIMESTAMP.formatValue(m_rDate));
+
     }
     
     protected static Window getWindow(Component parent) {
@@ -474,6 +483,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
     private void m_jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jButtonAddActionPerformed
 
         PaymentInfo returnPayment = ((JPaymentInterface) m_jTabPayment.getSelectedComponent()).executePayment();
+
         if (returnPayment != null) {
             m_aPaymentInfo.add(returnPayment);
             printState();
@@ -492,8 +502,11 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
     private void m_jButtonOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jButtonOKActionPerformed
         
         PaymentInfo returnPayment = ((JPaymentInterface) m_jTabPayment.getSelectedComponent()).executePayment();
+
+
         if (returnPayment != null) {
             m_aPaymentInfo.add(returnPayment);
+
             accepted = true;
             dispose();
         }           
@@ -536,6 +549,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         date = JCalendarDialog.showCalendarTimeHours(this, date);
         if (date != null) {
             jReturnDate.setText(Formats.TIMESTAMP.formatValue(date));
+            m_rDate=date;
         }
 }//GEN-LAST:event_btnDateStartActionPerformed
 
