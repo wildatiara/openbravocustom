@@ -332,6 +332,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         jReturnDate = new javax.swing.JTextField();
         btnDateStart = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jCancelDate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle(AppLocal.getIntString("payment.title")); // NOI18N
@@ -465,6 +466,15 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         jPanel7.add(jLabel1);
         jLabel1.setBounds(110, 0, 80, 30);
 
+        jCancelDate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/button_cancel.png"))); // NOI18N
+        jCancelDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCancelDateActionPerformed(evt);
+            }
+        });
+        jPanel7.add(jCancelDate);
+        jCancelDate.setBounds(290, 30, 40, 30);
+
         jPanel5.add(jPanel7, java.awt.BorderLayout.CENTER);
 
         getContentPane().add(jPanel5, java.awt.BorderLayout.SOUTH);
@@ -556,9 +566,14 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
     private void jReturnDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jReturnDateActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jReturnDateActionPerformed
+
+    private void jCancelDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelDateActionPerformed
+        jReturnDate.setText(null);
+    }//GEN-LAST:event_jCancelDateActionPerformed
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnDateStart;
+    private javax.swing.JButton jCancelDate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
