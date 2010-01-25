@@ -883,7 +883,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
 
                     paymentdialog.setTransactionID(ticket.getTransactionID());
 
-                    if (paymentdialog.showDialog(ticket.getTotal(), ticket.getCustomer(), ticket.getrDate())) {
+                    if (paymentdialog.showDialog(ticket.getTotal(), ticket.getCustomer(), ticket.getDateReturn())) {
 
                         // assign the payments selected and calculate taxes.         
                         ticket.setPayments(paymentdialog.getSelectedPayments());
@@ -893,7 +893,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
                         ticket.setActiveCash(m_App.getActiveCashIndex());
                         ticket.setDate(new Date()); // Le pongo la fecha de cobro
 
-                        ticket.setrDate(paymentdialog.getrDate());
+                        ticket.setDateReturn(paymentdialog.getrDate());
 
                         if (executeEvent(ticket, ticketext, "ticket.save") == null) {
                             // Save the receipt and assign a receipt number

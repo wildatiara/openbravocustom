@@ -516,7 +516,7 @@ public class CustomersPayment extends javax.swing.JPanel implements JPanelView, 
             ticket.setActiveCash(app.getActiveCashIndex());
             ticket.setDate(new Date());
             ticket.setCustomer(customerext);
-            ticket.setrDate(paymentdialog.getrDate());
+            ticket.setDateReturn(paymentdialog.getrDate());
 
             try {
                 dlsales.saveTicket(ticket, app.getInventoryLocation());

@@ -57,7 +57,15 @@
         <line>
             <text align="left" length="15">Date:</text>
             <text>${ticket.printDate()}</text>
-        </line>  
+        </line>
+        <line>
+            <text align="left" length="15">Date Retour:</text>
+            <text>${ticket.printDateReturn()}</text>
+        </line>
+        <line>
+            <text align="left" length="15">Date Rendu:</text>
+            <text>${ticket.printDateRendu()}</text>
+        </line>
          #if ($ticket.getCustomer())
         <line>
             <text align="left" length="15">Customer:</text>
