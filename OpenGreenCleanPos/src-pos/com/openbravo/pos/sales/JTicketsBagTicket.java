@@ -39,6 +39,7 @@ import com.openbravo.pos.scripting.ScriptFactory;
 import com.openbravo.pos.forms.DataLogicSystem;
 import com.openbravo.pos.panels.JTicketsFinder;
 import com.openbravo.pos.ticket.FindTicketsInfo;
+import java.util.Date;
 
 public class JTicketsBagTicket extends JTicketsBag {
     
@@ -190,7 +191,8 @@ public class JTicketsBagTicket extends JTicketsBag {
             m_jRendu.setEnabled(
                     m_ticket != null
                     && (m_ticket.getTicketType() == TicketInfo.RECEIPT_NORMAL || m_ticket.getTicketType() == TicketInfo.RECEIPT_REFUND)
-                    && (!m_ticket.isRendu()));
+                    && (m_ticket.isPickable()));
+
         } catch (BasicException e) {
             m_jEdit.setEnabled(false);
             m_jRendu.setEnabled(false);
@@ -468,10 +470,13 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 }//GEN-LAST:event_jButton2ActionPerformed
 
 private void m_jRenduActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jRenduActionPerformed
-    m_ticket.setRendu();
+
+         m_ticket.setRendu();
         try {
             m_dlSales.setRendu(m_ticket.getId());
+            printTicket();
             m_jRendu.setEnabled(false);
+            
         } catch (BasicException ex) {
             Logger.getLogger(JTicketsBagTicket.class.getName()).log(Level.SEVERE, null, ex);
         }
