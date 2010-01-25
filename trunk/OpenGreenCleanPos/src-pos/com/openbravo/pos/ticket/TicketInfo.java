@@ -59,7 +59,8 @@ public class TicketInfo implements SerializableRead, Externalizable {
     private List<PaymentInfo> payments;
     private List<TicketTaxInfo> taxes;
     private String m_sResponse;
-    private java.util.Date m_rDate;
+    private java.util.Date m_DateReturn;
+    private java.util.Date m_DateRendu;
 
     /** Creates new TicketModel */
     public TicketInfo() {
@@ -76,7 +77,8 @@ public class TicketInfo implements SerializableRead, Externalizable {
         payments = new ArrayList<PaymentInfo>();
         taxes = null;
         m_sResponse = null;
-        m_rDate = null;
+        m_DateReturn = null;
+        m_DateRendu = null;
     }
 
     public void writeExternal(ObjectOutput out) throws IOException {
@@ -88,7 +90,8 @@ public class TicketInfo implements SerializableRead, Externalizable {
         out.writeObject(m_dDate);
         out.writeObject(attributes);
         out.writeObject(m_aLines);
-        out.writeObject(m_rDate);
+        out.writeObject(m_DateReturn);
+        out.writeObject(m_DateRendu);
     }
 
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
@@ -100,7 +103,8 @@ public class TicketInfo implements SerializableRead, Externalizable {
         m_dDate = (Date) in.readObject();
         attributes = (Properties) in.readObject();
         m_aLines = (List<TicketLineInfo>) in.readObject();
-        m_rDate = (Date) in.readObject();
+        m_DateReturn = (Date) in.readObject();
+        m_DateRendu = (Date) in.readObject();
         m_User = null;
         m_sActiveCash = null;
 
@@ -127,7 +131,8 @@ public class TicketInfo implements SerializableRead, Externalizable {
 
         payments = new ArrayList<PaymentInfo>();
         taxes = null;
-        m_rDate = dr.getTimestamp(10);
+        m_DateReturn = dr.getTimestamp(10);
+        m_DateRendu = dr.getTimestamp(11);
     }
 
     public TicketInfo copyTicket() {
@@ -136,7 +141,8 @@ public class TicketInfo implements SerializableRead, Externalizable {
         t.tickettype = tickettype;
         t.m_iTicketId = m_iTicketId;
         t.m_dDate = m_dDate;
-        t.m_rDate = m_rDate;
+        t.m_DateReturn = m_DateReturn;
+        t.m_DateRendu = m_DateRendu;
         t.m_sActiveCash = m_sActiveCash;
         t.attributes = (Properties) attributes.clone();
         t.m_User = m_User;
@@ -201,6 +207,15 @@ public class TicketInfo implements SerializableRead, Externalizable {
         return name.toString();
     }
 
+    public void setRendu(){
+        m_DateRendu = new Date();
+
+    }
+
+    public boolean isRendu(){
+        return m_DateRendu != null;
+    }
+
     public String getName() {
         return getName(null);
     }
@@ -209,16 +224,20 @@ public class TicketInfo implements SerializableRead, Externalizable {
         return m_dDate;
     }
 
-    public java.util.Date getrDate() {
-        return m_rDate;
+    public java.util.Date getDateReturn() {
+        return m_DateReturn;
+    }
+
+    public java.util.Date getDateRendu() {
+        return m_DateRendu;
     }
 
     public void setDate(java.util.Date dDate) {
         m_dDate = dDate;
     }
 
-    public void setrDate(java.util.Date rDate) {
-        m_rDate = rDate;
+    public void setDateReturn(java.util.Date rDate) {
+        m_DateReturn = rDate;
     }
 
     public UserInfo getUser() {
@@ -491,6 +510,14 @@ public class TicketInfo implements SerializableRead, Externalizable {
 
     public String printDate() {
         return Formats.TIMESTAMP.formatValue(m_dDate);
+    }
+
+    public String printDateReturn() {
+        return Formats.TIMESTAMP.formatValue(m_DateReturn);
+    }
+
+    public String printDateRendu() {
+        return Formats.TIMESTAMP.formatValue(m_DateRendu);
     }
 
     public String printUser() {

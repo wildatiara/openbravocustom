@@ -23,6 +23,8 @@ import com.openbravo.pos.ticket.TicketInfo;
 import com.openbravo.pos.ticket.TicketLineInfo;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import com.openbravo.data.gui.MessageInf;
 import com.openbravo.pos.forms.AppView; 
@@ -98,6 +100,8 @@ public class JTicketsBagTicket extends JTicketsBag {
         m_jEdit.setVisible(m_App.getAppUserView().getUser().hasPermission("sales.EditTicket"));
         m_jRefund.setVisible(m_App.getAppUserView().getUser().hasPermission("sales.RefundTicket"));
         m_jPrint.setVisible(m_App.getAppUserView().getUser().hasPermission("sales.PrintTicket"));
+
+        m_jRendu.setVisible(m_App.getAppUserView().getUser().hasPermission("sales.EditTicket"));
              
         // postcondicion es que tenemos ticket activado aqui y ticket en el panel
     }
@@ -183,8 +187,13 @@ public class JTicketsBagTicket extends JTicketsBag {
                     m_ticket != null
                     && (m_ticket.getTicketType() == TicketInfo.RECEIPT_NORMAL || m_ticket.getTicketType() == TicketInfo.RECEIPT_REFUND)
                     && m_dlSales.isCashActive(m_ticket.getActiveCash()));
+            m_jRendu.setEnabled(
+                    m_ticket != null
+                    && (m_ticket.getTicketType() == TicketInfo.RECEIPT_NORMAL || m_ticket.getTicketType() == TicketInfo.RECEIPT_REFUND)
+                    && (!m_ticket.isRendu()));
         } catch (BasicException e) {
             m_jEdit.setEnabled(false);
+            m_jRendu.setEnabled(false);
         }
         m_jRefund.setEnabled(m_ticket != null && m_ticket.getTicketType() == TicketInfo.RECEIPT_NORMAL);
         m_jPrint.setEnabled(m_ticket != null);
@@ -228,6 +237,7 @@ public class JTicketsBagTicket extends JTicketsBag {
         m_jEdit = new javax.swing.JButton();
         m_jRefund = new javax.swing.JButton();
         m_jPrint = new javax.swing.JButton();
+        m_jRendu = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         m_jPanelTicket = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
@@ -305,6 +315,16 @@ public class JTicketsBagTicket extends JTicketsBag {
             }
         });
         m_jButtons.add(m_jPrint);
+
+        m_jRendu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/yast_group_add.png"))); // NOI18N
+        m_jRendu.setText("Rendu");
+        m_jRendu.setPreferredSize(new java.awt.Dimension(100, 44));
+        m_jRendu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                m_jRenduActionPerformed(evt);
+            }
+        });
+        m_jButtons.add(m_jRendu);
 
         m_jOptions.add(m_jButtons, java.awt.BorderLayout.WEST);
 
@@ -446,6 +466,17 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             readTicket(selectedTicket.getTicketId(), selectedTicket.getTicketType());
         }
 }//GEN-LAST:event_jButton2ActionPerformed
+
+private void m_jRenduActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jRenduActionPerformed
+    m_ticket.setRendu();
+        try {
+            m_dlSales.setRendu(m_ticket.getId());
+            m_jRendu.setEnabled(false);
+        } catch (BasicException ex) {
+            Logger.getLogger(JTicketsBagTicket.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+}//GEN-LAST:event_m_jRenduActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
@@ -465,6 +496,7 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JPanel m_jPanelTicket;
     private javax.swing.JButton m_jPrint;
     private javax.swing.JButton m_jRefund;
+    private javax.swing.JButton m_jRendu;
     private com.openbravo.editor.JEditorIntegerPositive m_jTicketEditor;
     private javax.swing.JLabel m_jTicketId;
     // End of variables declaration//GEN-END:variables
