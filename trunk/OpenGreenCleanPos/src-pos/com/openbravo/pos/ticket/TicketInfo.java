@@ -212,8 +212,15 @@ public class TicketInfo implements SerializableRead, Externalizable {
 
     }
 
-    public boolean isRendu(){
-        return m_DateRendu != null;
+    /*
+     * isPickable means that the ticket has a m_DateReturn
+     * m_DateReturn cannot be smaller than today
+     * m_DateRendu must be null
+     *
+     */
+    public boolean isPickable(){
+
+        return ((m_DateReturn!=null) && (m_DateRendu == null) && (m_DateReturn.before(new Date())));
     }
 
     public String getName() {
