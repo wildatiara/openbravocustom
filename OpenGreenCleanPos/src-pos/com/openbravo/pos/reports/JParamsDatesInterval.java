@@ -30,6 +30,7 @@ import com.openbravo.basic.BasicException;
 import com.openbravo.data.loader.Datas;
 import com.openbravo.data.loader.SerializerWrite;
 import com.openbravo.data.loader.SerializerWriteBasic;
+import java.util.Calendar;
 
 public class JParamsDatesInterval extends javax.swing.JPanel implements ReportEditorCreator {
 
@@ -85,6 +86,7 @@ public class JParamsDatesInterval extends javax.swing.JPanel implements ReportEd
         jTxtEndDate = new javax.swing.JTextField();
         btnDateStart = new javax.swing.JButton();
         btnDateEnd = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setBorder(javax.swing.BorderFactory.createTitledBorder(AppLocal.getIntString("label.bydates"))); // NOI18N
         setPreferredSize(new java.awt.Dimension(0, 100));
@@ -92,15 +94,15 @@ public class JParamsDatesInterval extends javax.swing.JPanel implements ReportEd
 
         jLabel1.setText(AppLocal.getIntString("Label.StartDate")); // NOI18N
         add(jLabel1);
-        jLabel1.setBounds(20, 20, 120, 15);
+        jLabel1.setBounds(20, 20, 120, 16);
         add(jTxtStartDate);
-        jTxtStartDate.setBounds(140, 20, 200, 19);
+        jTxtStartDate.setBounds(130, 20, 200, 28);
 
         jLabel2.setText(AppLocal.getIntString("Label.EndDate")); // NOI18N
         add(jLabel2);
-        jLabel2.setBounds(20, 50, 120, 15);
+        jLabel2.setBounds(20, 50, 120, 16);
         add(jTxtEndDate);
-        jTxtEndDate.setBounds(140, 50, 200, 19);
+        jTxtEndDate.setBounds(130, 50, 200, 28);
 
         btnDateStart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/date.png"))); // NOI18N
         btnDateStart.addActionListener(new java.awt.event.ActionListener() {
@@ -109,7 +111,7 @@ public class JParamsDatesInterval extends javax.swing.JPanel implements ReportEd
             }
         });
         add(btnDateStart);
-        btnDateStart.setBounds(350, 20, 50, 26);
+        btnDateStart.setBounds(340, 20, 32, 28);
 
         btnDateEnd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/date.png"))); // NOI18N
         btnDateEnd.addActionListener(new java.awt.event.ActionListener() {
@@ -118,7 +120,21 @@ public class JParamsDatesInterval extends javax.swing.JPanel implements ReportEd
             }
         });
         add(btnDateEnd);
-        btnDateEnd.setBounds(350, 50, 50, 26);
+        btnDateEnd.setBounds(340, 50, 32, 28);
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/1day.png"))); // NOI18N
+        jButton1.setText("Today");
+        jButton1.setMaximumSize(new java.awt.Dimension(69, 26));
+        jButton1.setMinimumSize(new java.awt.Dimension(69, 26));
+        jButton1.setPreferredSize(new java.awt.Dimension(69, 26));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        add(jButton1);
+        jButton1.setBounds(380, 20, 80, 60);
+        jButton1.getAccessibleContext().setAccessibleName("jToday");
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDateStartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDateStartActionPerformed
@@ -148,11 +164,32 @@ public class JParamsDatesInterval extends javax.swing.JPanel implements ReportEd
             jTxtEndDate.setText(Formats.TIMESTAMP.formatValue(date));
         }          
     }//GEN-LAST:event_btnDateEndActionPerformed
-    
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Date date;
+        Calendar cal = Calendar.getInstance();
+        Date tomorrow = new Date();
+
+
+        cal.setTime(new Date(tomorrow.getYear(), tomorrow.getMonth(), tomorrow.getDate()));
+        date = (Date) cal.getTime();
+
+        setStartDate(date);
+
+        cal.add(Calendar.DATE, 1);
+        if (cal.DAY_OF_WEEK == cal.SUNDAY) {
+            cal.add(Calendar.DATE, 1);
+        }
+        date = (Date) cal.getTime();
+
+        setEndDate(date);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDateEnd;
     private javax.swing.JButton btnDateStart;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField jTxtEndDate;
