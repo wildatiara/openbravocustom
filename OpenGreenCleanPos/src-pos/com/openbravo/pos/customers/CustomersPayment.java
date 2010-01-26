@@ -495,7 +495,7 @@ public class CustomersPayment extends javax.swing.JPanel implements JPanelView, 
 
         paymentdialog.setPrintSelected(true);
         
-        if (paymentdialog.showDialog(customerext.getCurdebt(), null, null)) {
+        if (paymentdialog.showDialog(customerext.getCurdebt(), null, null, null)) {
 
             // Save the ticket
             TicketInfo ticket = new TicketInfo();

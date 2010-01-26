@@ -883,7 +883,7 @@ public abstract class JPanelTicket extends JPanel implements JPanelView, BeanFac
 
                     paymentdialog.setTransactionID(ticket.getTransactionID());
 
-                    if (paymentdialog.showDialog(ticket.getTotal(), ticket.getCustomer(), ticket.getDateReturn())) {
+                    if (paymentdialog.showDialog(ticket.getTotal(), ticket.getCustomer(), ticket.getDateReturn(), ticket.isPressing())) {
 
                         // assign the payments selected and calculate taxes.         
                         ticket.setPayments(paymentdialog.getSelectedPayments());
