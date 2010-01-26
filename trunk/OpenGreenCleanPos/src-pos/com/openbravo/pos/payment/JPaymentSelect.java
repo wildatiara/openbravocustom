@@ -55,6 +55,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
     private AppView app;
     private double m_dTotal;
     private Date m_rDate;
+    private boolean m_isPressing;
 
     public Date getrDate(){
         return m_rDate;
@@ -75,7 +76,8 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         
         this.applyComponentOrientation(o);
         
-        getRootPane().setDefaultButton(m_jButtonOK); 
+        getRootPane().setDefaultButton(m_jButtonOK);
+      
     }
     /** Creates new form JPaymentSelect */
     protected JPaymentSelect(java.awt.Dialog parent, boolean modal, ComponentOrientation o) {
@@ -103,44 +105,52 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         return m_aPaymentInfo.getPayments();
     }
             
-    public boolean showDialog(double total, CustomerInfoExt customerext, Date datereturn) {
+    public boolean showDialog(double total, CustomerInfoExt customerext, Date datereturn, Boolean isPressing) {
         
         m_aPaymentInfo = new PaymentInfoList();
         accepted = false;
         
         m_dTotal = total;
         m_rDate = datereturn;
+        m_isPressing = isPressing;
         
         this.customerext = customerext;        
 
         m_jButtonPrint.setSelected(printselected);
         m_jTotalEuros.setText(Formats.CURRENCY.formatValue(new Double(m_dTotal)));
- /* 
-  * TODO
-  * Récupérer la donnée du model datereturn, si elle n'existe pas, mettre null 
-  */
+
+        if (isPressing) {
+            jReturnDate.setEnabled(true);
+            btnDateStart.setEnabled(true);
+            jCancelDate.setEnabled(true);
+        } else {
+            jReturnDate.setEnabled(false);
+            btnDateStart.setEnabled(false);
+            jCancelDate.setEnabled(false);
+        }
+
         jReturnDate.setText(Formats.TIMESTAMP.formatValue(datereturn));
 
- //       m_jReturnDate.
-        
         addTabs();
 
         if (m_jTabPayment.getTabCount() == 0) {
             // No payment panels available            
             m_aPaymentInfo.add(getDefaultPayment(total));
-            accepted = true;            
+            accepted = true;
+
         } else {
             getRootPane().setDefaultButton(m_jButtonOK);
             printState();
             setVisible(true);
         }
         
+
         // gets the print button state
         printselected = m_jButtonPrint.isSelected();
         
         // remove all tabs        
         m_jTabPayment.removeAll();
-        
+
         return accepted;
     }  
     
@@ -296,8 +306,13 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
     }       
     
     public void setStatus(boolean isPositive, boolean isComplete) {
+
+ //       logger.info(" CALL setStatus : "+isPositive+" "+isComplete+" "+m_isPressing);
+        if (m_rDate==null && m_isPressing)
+          setStatusPanel(isPositive, false);
+        else
+          setStatusPanel(isPositive, isComplete);
         
-        setStatusPanel(isPositive, isComplete);
     }
     
     public void setTransactionID(String tID){
@@ -560,6 +575,9 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         if (date != null) {
             jReturnDate.setText(Formats.TIMESTAMP.formatValue(date));
             m_rDate=date;
+            setStatus(true, true);
+        } else {
+            setStatus(true, false);
         }
 }//GEN-LAST:event_btnDateStartActionPerformed
 
@@ -569,6 +587,8 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
 
     private void jCancelDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelDateActionPerformed
         jReturnDate.setText(null);
+        m_rDate=null;
+        setStatus(true, false);
     }//GEN-LAST:event_jCancelDateActionPerformed
    
     // Variables declaration - do not modify//GEN-BEGIN:variables

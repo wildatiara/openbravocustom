@@ -332,6 +332,19 @@ public class TicketInfo implements SerializableRead, Externalizable {
         refreshLines();
     }
 
+    public boolean isPressing(){
+        TicketLineInfo oLine;
+
+        for (Iterator<TicketLineInfo> i = m_aLines.iterator(); i.hasNext();) {
+
+             oLine = i.next();
+             if (oLine.getTaxInfo().getName().compareTo("Tax Pressing") == 0) {
+                return true;
+            }
+       }
+       return false;
+    }
+
     private void refreshLines() {
         for (int i = 0; i < m_aLines.size(); i++) {
             getLine(i).setTicket(m_sId, i);
