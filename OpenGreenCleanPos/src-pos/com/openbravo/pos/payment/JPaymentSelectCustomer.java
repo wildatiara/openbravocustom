@@ -54,7 +54,7 @@ public class JPaymentSelectCustomer extends JPaymentSelect {
     protected void addTabs() {
         
         addTabPayment(new JPaymentSelect.JPaymentCashCreator());
-        addTabPayment(new JPaymentSelect.JPaymentChequeCreator());
+//        addTabPayment(new JPaymentSelect.JPaymentChequeCreator());
         addTabPayment(new JPaymentSelect.JPaymentPaperCreator());
         addTabPayment(new JPaymentSelect.JPaymentMagcardCreator());
         setHeaderVisible(true);
