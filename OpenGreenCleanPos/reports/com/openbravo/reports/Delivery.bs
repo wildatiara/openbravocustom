@@ -32,10 +32,10 @@ report.setSentence("SELECT " +
                 "PRODUCTS.NAME, " +
                 "SUM(TICKETLINES.UNITS) AS UNITS, " +
                 "SUM(TICKETLINES.UNITS * TICKETLINES.PRICE) AS TOTAL " +
-                "FROM CUSTOMERS, RECEIPTS, TICKETS LEFT OUTER JOIN CUSTOMERS ON CUSTOMERS.ID = TICKETS.CUSTOMER, TICKETLINES LEFT OUTER JOIN PRODUCTS ON TICKETLINES.PRODUCT = PRODUCTS.ID " +
+                "FROM RECEIPTS, TICKETS LEFT OUTER JOIN CUSTOMERS ON CUSTOMERS.ID = TICKETS.CUSTOMER, TICKETLINES LEFT OUTER JOIN PRODUCTS ON TICKETLINES.PRODUCT = PRODUCTS.ID " +
                 "WHERE RECEIPTS.ID = TICKETS.ID AND TICKETS.ID = TICKETLINES.TICKET AND ?(QBF_FILTER) " +
-                "GROUP BY TICKETS.TICKETID,CUSTOMERS.SEARCHKEY, PRODUCTS.REFERENCE, PRODUCTS.NAME " +
-                "ORDER BY TICKETS.TICKETID,CUSTOMERS.SEARCHKEY, PRODUCTS.NAME");
+                "GROUP BY TICKETS.TICKETID, CUSTOMERS.SEARCHKEY, PRODUCTS.REFERENCE, PRODUCTS.NAME " +
+                "ORDER BY TICKETS.TICKETID, CUSTOMERS.SEARCHKEY, PRODUCTS.REFERENCE, PRODUCTS.NAME");
 report.addParameter("TICKET.DATERETURN");
 report.addParameter("TICKET.DATERETURN");
 report.addQBFFilter(new com.openbravo.pos.reports.JParamsDatesInterval());
@@ -47,7 +47,5 @@ report.addField("REFERENCE", com.openbravo.data.loader.Datas.STRING);
 report.addField("NAME", com.openbravo.data.loader.Datas.STRING);
 report.addField("UNITS", com.openbravo.data.loader.Datas.DOUBLE);
 report.addField("TOTAL", com.openbravo.data.loader.Datas.DOUBLE);
-report.addField("STARTDATE", com.openbravo.data.loader.Datas.TIMESTAMP);
-report.addField("ENDDATE", com.openbravo.data.loader.Datas.TIMESTAMP);
 
 report;
