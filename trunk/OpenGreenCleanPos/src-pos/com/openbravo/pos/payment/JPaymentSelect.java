@@ -57,6 +57,9 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
     private Date m_rDate;
     private boolean m_isPressing;
 
+    private boolean m_isPositive;
+    private boolean m_isComplete;
+
     public Date getrDate(){
         return m_rDate;
     }
@@ -68,6 +71,8 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
     private String m_sTransactionID;
     
     private static Logger logger = Logger.getLogger("com.openbravo.data.loader.PreparedSentence");
+
+
 
     /** Creates new form JPaymentSelect */
     protected JPaymentSelect(java.awt.Frame parent, boolean modal, ComponentOrientation o) {
@@ -176,8 +181,8 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
             }
             
             jpayinterface.getComponent().applyComponentOrientation(getComponentOrientation());
-            m_jTabPayment.addTab(
-                    AppLocal.getIntString(jpay.getLabelKey()),
+            //AppLocal.getIntString(jpay.getLabelKey())
+            m_jTabPayment.addTab("",
                     new javax.swing.ImageIcon(getClass().getResource(jpay.getIconKey())),
                     jpayinterface.getComponent());
         }
@@ -306,13 +311,20 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
     }       
     
     public void setStatus(boolean isPositive, boolean isComplete) {
-
- //       logger.info(" CALL setStatus : "+isPositive+" "+isComplete+" "+m_isPressing);
+        m_isComplete=isComplete;
+        m_isPositive=isPositive;
         if (m_rDate==null && m_isPressing)
-          setStatusPanel(isPositive, false);
+          setStatusPanel(isPositive, isComplete && false);
         else
           setStatusPanel(isPositive, isComplete);
-        
+    }
+
+    private void setStatusPressing(boolean isPressing) {
+         //       logger.info(" CALL setStatus : "+isPositive+" "+isComplete+" "+m_isPressing);
+        if (m_rDate==null && m_isPressing)
+          setStatusPanel(m_isPositive, m_isComplete && isPressing);
+        else
+          setStatusPanel(m_isPositive, m_isComplete);
     }
     
     public void setTransactionID(String tID){
@@ -575,9 +587,9 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         if (date != null) {
             jReturnDate.setText(Formats.TIMESTAMP.formatValue(date));
             m_rDate=date;
-            setStatus(true, true);
+            setStatusPressing(true);
         } else {
-            setStatus(true, false);
+            setStatusPressing(false);
         }
 }//GEN-LAST:event_btnDateStartActionPerformed
 
@@ -588,7 +600,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
     private void jCancelDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCancelDateActionPerformed
         jReturnDate.setText(null);
         m_rDate=null;
-        setStatus(true, false);
+        setStatusPressing(false);
     }//GEN-LAST:event_jCancelDateActionPerformed
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
