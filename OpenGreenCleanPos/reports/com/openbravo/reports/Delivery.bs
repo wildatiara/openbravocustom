@@ -36,8 +36,8 @@ report.setSentence("SELECT " +
                 "WHERE RECEIPTS.ID = TICKETS.ID AND TICKETS.ID = TICKETLINES.TICKET AND ?(QBF_FILTER) " +
                 "GROUP BY TICKETS.TICKETID, CUSTOMERS.SEARCHKEY, PRODUCTS.REFERENCE, PRODUCTS.NAME " +
                 "ORDER BY TICKETS.TICKETID, CUSTOMERS.SEARCHKEY, PRODUCTS.REFERENCE, PRODUCTS.NAME");
-report.addParameter("TICKET.DATERETURN");
-report.addParameter("TICKET.DATERETURN");
+report.addParameter("TICKETS.DATERETURN");
+report.addParameter("TICKETS.DATERETURN");
 report.addQBFFilter(new com.openbravo.pos.reports.JParamsDatesInterval());
 
 report.addField("SEARCHKEY", com.openbravo.data.loader.Datas.STRING);
