@@ -42,7 +42,7 @@
     <class name="/com/openbravo/reports/taxes.bs"/>
     <class name="/com/openbravo/reports/chartsales.bs"/>
     <class name="/com/openbravo/reports/productsales.bs"/>
-    <class name="/com/openbravo/reports/productsDelivery.bs"/>
+    <class name="/com/openbravo/reports/tickets.bs"/>
     <class name="/com/openbravo/reports/Delivery.bs"/>
     <class name="Menu.ChangePassword"/>
     <class name="button.print"/>
