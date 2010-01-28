@@ -34,9 +34,9 @@
  */
 
 //    Portions:
-//    Openbravo POS is a point of sales application designed for touch screens.
+//    GreenPressing POS is a point of sales application designed for touch screens.
 //    Copyright (C) 2007-2009 Openbravo, S.L.
-//    http://www.openbravo.com/product/pos
+//    http://code.google.com/p/openbravocustom/
 //    author adrian romero
 // This class is a copy of net.sf.jasperreports.view.JRViewer
 // The modifications are:

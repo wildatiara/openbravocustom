@@ -1,6 +1,6 @@
 //    Openbravo POS is a point of sales application designed for touch screens.
 //    Copyright (C) 2009 Openbravo, S.L.
-//    http://www.openbravo.com/product/pos
+//    http://code.google.com/p/openbravocustom/
 //
 //    This file is part of Openbravo POS.
 //

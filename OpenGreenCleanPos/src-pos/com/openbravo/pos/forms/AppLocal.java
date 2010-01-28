@@ -1,6 +1,6 @@
 //    Openbravo POS is a point of sales application designed for touch screens.
 //    Copyright (C) 2007-2009 Openbravo, S.L.
-//    http://www.openbravo.com/product/pos
+//    http://code.google.com/p/openbravocustom/
 //
 //    This file is part of Openbravo POS.
 //
@@ -27,9 +27,9 @@ import com.openbravo.beans.LocaleResources;
  */
 public class AppLocal {
     
-    public static final String APP_NAME = "Openbravo POS";
-    public static final String APP_ID = "openbravopos";
-    public static final String APP_VERSION = "2.30";
+    public static final String APP_NAME = "GreenPressing POS";
+    public static final String APP_ID = "greenpressingpos";
+    public static final String APP_VERSION = "0.30";
   
     // private static List<ResourceBundle> m_messages;
     private static LocaleResources m_resources;
