@@ -19,33 +19,35 @@
 
 report = new com.openbravo.pos.reports.PanelReportBean();
 
-report.setTitleKey("Menu.ClosedProducts");
+report.setTitleKey("Menu.Delivery");
 report.setReport("/com/openbravo/reports/tickets");
 report.setResourceBundle("com/openbravo/reports/tickets_messages");
 
+
 report.setSentence("SELECT " +
                 "CUSTOMERS.SEARCHKEY, " +
+                "CUSTOMERS.NAME AS NAMECUST, " +
                 "TICKETS.TICKETID, " +
-                "TICKETS.DATERETURN, " +
+                "RECEIPTS.DATENEW, " +
                 "PRODUCTS.REFERENCE, " +
                 "PRODUCTS.NAME, " +
                 "SUM(TICKETLINES.UNITS) AS UNITS, " +
                 "SUM(TICKETLINES.UNITS * TICKETLINES.PRICE) AS TOTAL " +
                 "FROM RECEIPTS, TICKETS LEFT OUTER JOIN CUSTOMERS ON CUSTOMERS.ID = TICKETS.CUSTOMER, TICKETLINES LEFT OUTER JOIN PRODUCTS ON TICKETLINES.PRODUCT = PRODUCTS.ID " +
                 "WHERE RECEIPTS.ID = TICKETS.ID AND TICKETS.ID = TICKETLINES.TICKET AND ?(QBF_FILTER) " +
-                "GROUP BY CUSTOMERS.SEARCHKEY, TICKETS.TICKETID, TICKETS.DATERETURN, PRODUCTS.REFERENCE, PRODUCTS.NAME " +
-                "ORDER BY CUSTOMERS.SEARCHKEY, TICKETS.DATERETURN, PRODUCTS.REFERENCE, PRODUCTS.NAME");
-report.addParameter("TICKETS.DATERETURN");
-report.addParameter("TICKETS.DATERETURN");
+                "GROUP BY TICKETS.TICKETID, CUSTOMERS.SEARCHKEY, PRODUCTS.REFERENCE, PRODUCTS.NAME " +
+                "ORDER BY TICKETS.TICKETID, CUSTOMERS.SEARCHKEY, PRODUCTS.REFERENCE, PRODUCTS.NAME");
+report.addParameter("RECEIPTS.DATENEW");
+report.addParameter("RECEIPTS.DATENEW");
 report.addQBFFilter(new com.openbravo.pos.reports.JParamsDatesInterval());
 
 report.addField("SEARCHKEY", com.openbravo.data.loader.Datas.STRING);
+report.addField("NAMECUST", com.openbravo.data.loader.Datas.STRING);
 report.addField("TICKETID", com.openbravo.data.loader.Datas.STRING);
-report.addField("DATERETURN", com.openbravo.data.loader.Datas.TIMESTAMP);
+report.addField("DATENEW", com.openbravo.data.loader.Datas.TIMESTAMP);
 report.addField("REFERENCE", com.openbravo.data.loader.Datas.STRING);
 report.addField("NAME", com.openbravo.data.loader.Datas.STRING);
 report.addField("UNITS", com.openbravo.data.loader.Datas.DOUBLE);
 report.addField("TOTAL", com.openbravo.data.loader.Datas.DOUBLE);
 
 report;
-
