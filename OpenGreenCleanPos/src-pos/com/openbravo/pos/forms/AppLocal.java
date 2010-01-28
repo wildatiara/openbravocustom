@@ -29,7 +29,7 @@ public class AppLocal {
     
     public static final String APP_NAME = "GreenPressing POS";
     public static final String APP_ID = "greenpressingpos";
-    public static final String APP_VERSION = "0.30";
+    public static final String APP_VERSION = "2.30";
   
     // private static List<ResourceBundle> m_messages;
     private static LocaleResources m_resources;
