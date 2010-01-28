@@ -26,6 +26,7 @@ report.setResourceBundle("com/openbravo/reports/Delivery_messages");
 
 report.setSentence("SELECT " +
                 "CUSTOMERS.SEARCHKEY, " +
+                "CUSTOMERS.NAME, " +
                 "TICKETS.TICKETID, " +
                 "TICKETS.DATERETURN, " +
                 "PRODUCTS.REFERENCE, " +
