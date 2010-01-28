@@ -46,7 +46,7 @@ import org.openbravo.service.web.WebService;
 import org.openbravo.service.web.WebServiceUtil;
 
 /**
- * Openbravo POS and ERP Synchronization WebService
+ * GreenPressing POS and ERP Synchronization WebService
  * 
  * @author mirurita
  */
