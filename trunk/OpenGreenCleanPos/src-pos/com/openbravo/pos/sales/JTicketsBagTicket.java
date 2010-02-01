@@ -113,7 +113,7 @@ public class JTicketsBagTicket extends JTicketsBag {
         m_jRefund.setVisible(m_App.getAppUserView().getUser().hasPermission("sales.RefundTicket"));
         m_jPrint.setVisible(m_App.getAppUserView().getUser().hasPermission("sales.PrintTicket"));
 
-        m_jRendu.setVisible(m_App.getAppUserView().getUser().hasPermission("sales.EditTicket"));
+        m_jRendu.setVisible(m_App.getAppUserView().getUser().hasPermission("sales.RefundTicket"));
 
         jDebt.setIcon(null);
         jDebt.setEnabled(false);
@@ -206,9 +206,7 @@ public class JTicketsBagTicket extends JTicketsBag {
                     && (m_ticket.getTicketType() == TicketInfo.RECEIPT_NORMAL || m_ticket.getTicketType() == TicketInfo.RECEIPT_REFUND)
                     && m_dlSales.isCashActive(m_ticket.getActiveCash()));
             m_jRendu.setEnabled(
-                    m_ticket != null
-                    && (m_ticket.getTicketType() == TicketInfo.RECEIPT_NORMAL || m_ticket.getTicketType() == TicketInfo.RECEIPT_REFUND)
-                    && (m_ticket.isPickable()));
+                    m_ticket != null && (m_ticket.isPickable()));
 
         } catch (BasicException e) {
             m_jEdit.setEnabled(false);
@@ -565,9 +563,7 @@ private void jDebtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
 
             checkDebt();
             m_jRendu.setEnabled(
-                    m_ticket != null
-                    && (m_ticket.getTicketType() == TicketInfo.RECEIPT_NORMAL || m_ticket.getTicketType() == TicketInfo.RECEIPT_REFUND)
-                    && (m_ticket.isPickable()));
+                    m_ticket != null && (m_ticket.isPickable()));
 //            printTicket(paymentdialog.isPrintSelected()
 //                    ? "Printer.CustomerPaid"
 //                    : "Printer.CustomerPaid2",
