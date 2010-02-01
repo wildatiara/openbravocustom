@@ -151,6 +151,12 @@ public class JNumberDialog extends javax.swing.JDialog {
         jPanel2.setLayout(new java.awt.BorderLayout());
 
         jPanel3.setLayout(new javax.swing.BoxLayout(jPanel3, javax.swing.BoxLayout.Y_AXIS));
+
+        m_jKeys.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                m_jKeysActionPerformed(evt);
+            }
+        });
         jPanel3.add(m_jKeys);
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEmptyBorder(5, 5, 5, 5));
@@ -173,7 +179,7 @@ public class JNumberDialog extends javax.swing.JDialog {
         getContentPane().add(m_jPanelTitle, java.awt.BorderLayout.NORTH);
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-253)/2, (screenSize.height-433)/2, 253, 433);
+        setBounds((screenSize.width-404)/2, (screenSize.height-484)/2, 404, 484);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jcmdOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcmdOKActionPerformed
@@ -199,6 +205,10 @@ public class JNumberDialog extends javax.swing.JDialog {
         dispose();
         
     }//GEN-LAST:event_formWindowClosing
+
+    private void m_jKeysActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_m_jKeysActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_m_jKeysActionPerformed
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

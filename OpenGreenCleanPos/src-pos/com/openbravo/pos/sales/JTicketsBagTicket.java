@@ -19,6 +19,7 @@
 
 package com.openbravo.pos.sales;
 
+import com.openbravo.pos.customers.CustomerInfoExt;
 import com.openbravo.pos.ticket.TicketInfo;
 import com.openbravo.pos.ticket.TicketLineInfo;
 import java.awt.*;
@@ -39,7 +40,6 @@ import com.openbravo.pos.scripting.ScriptFactory;
 import com.openbravo.pos.forms.DataLogicSystem;
 import com.openbravo.pos.panels.JTicketsFinder;
 import com.openbravo.pos.ticket.FindTicketsInfo;
-import java.util.Date;
 
 public class JTicketsBagTicket extends JTicketsBag {
     
@@ -54,8 +54,12 @@ public class JTicketsBagTicket extends JTicketsBag {
     private TicketInfo m_ticketCopy;
     
     private JTicketsBagTicketBag m_TicketsBagTicketBag;
-    
+
     private JPanelTicketEdits m_panelticketedit;
+
+    private CustomerInfoExt currentCustomer;
+
+    private static Logger logger = Logger.getLogger("com.openbravo.pos.sales.JTicketsBagTicket");
 
     /** Creates new form JTicketsBagTicket */
     public JTicketsBagTicket(AppView app, JPanelTicketEdits panelticket) {
@@ -103,7 +107,11 @@ public class JTicketsBagTicket extends JTicketsBag {
         m_jPrint.setVisible(m_App.getAppUserView().getUser().hasPermission("sales.PrintTicket"));
 
         m_jRendu.setVisible(m_App.getAppUserView().getUser().hasPermission("sales.EditTicket"));
-             
+
+        jDebt.setIcon(null);
+        jDebt.setEnabled(false);
+        currentCustomer = null;
+
         // postcondicion es que tenemos ticket activado aqui y ticket en el panel
     }
     
@@ -177,6 +185,19 @@ public class JTicketsBagTicket extends JTicketsBag {
         
         m_jTicketEditor.reset();
         m_jTicketEditor.activate();
+
+        jDebt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/apply.png")));
+        jDebt.setEnabled(true);
+        try {
+           currentCustomer = m_ticket.getCustomer();
+
+           if (currentCustomer.getCurdebt()>0.0) {
+                jDebt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/button_cancel.png")));
+                m_jRendu.setEnabled(false);
+            }
+        } catch (NullPointerException ne) {
+           // logger.info("**************************************************************************");
+        }
     }
     
     private void printTicket() {
@@ -239,6 +260,7 @@ public class JTicketsBagTicket extends JTicketsBag {
         m_jEdit = new javax.swing.JButton();
         m_jRefund = new javax.swing.JButton();
         m_jPrint = new javax.swing.JButton();
+        jDebt = new javax.swing.JButton();
         m_jRendu = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         m_jPanelTicket = new javax.swing.JPanel();
@@ -318,9 +340,17 @@ public class JTicketsBagTicket extends JTicketsBag {
         });
         m_jButtons.add(m_jPrint);
 
+        jDebt.setPreferredSize(new java.awt.Dimension(44, 44));
+        jDebt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jDebtActionPerformed(evt);
+            }
+        });
+        m_jButtons.add(jDebt);
+
         m_jRendu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/yast_group_add.png"))); // NOI18N
         m_jRendu.setText("Rendu");
-        m_jRendu.setPreferredSize(new java.awt.Dimension(100, 44));
+        m_jRendu.setPreferredSize(new java.awt.Dimension(85, 44));
         m_jRendu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 m_jRenduActionPerformed(evt);
@@ -482,11 +512,16 @@ private void m_jRenduActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         }
 
 }//GEN-LAST:event_m_jRenduActionPerformed
+
+private void jDebtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDebtActionPerformed
+
+}//GEN-LAST:event_jDebtActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jDebt;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

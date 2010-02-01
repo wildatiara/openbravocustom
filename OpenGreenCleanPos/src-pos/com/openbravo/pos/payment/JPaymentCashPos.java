@@ -98,7 +98,8 @@ public class JPaymentCashPos extends javax.swing.JPanel implements JPaymentInter
 
         Double value = m_jTendered.getDoubleValue();
         if (value == null || value == 0.0) {
-            m_dPaid = m_dTotal;
+//            m_dPaid = m_dTotal;
+            m_dPaid = 0.0;
         } else {            
             m_dPaid = value;
         }   
@@ -106,6 +107,7 @@ public class JPaymentCashPos extends javax.swing.JPanel implements JPaymentInter
         int iCompare = RoundUtils.compare(m_dPaid, m_dTotal);
         
         m_jMoneyEuros.setText(Formats.CURRENCY.formatValue(new Double(m_dPaid)));
+
         m_jChangeEuros.setText(iCompare > 0 
                 ? Formats.CURRENCY.formatValue(new Double(m_dPaid - m_dTotal))
                 : null); 
