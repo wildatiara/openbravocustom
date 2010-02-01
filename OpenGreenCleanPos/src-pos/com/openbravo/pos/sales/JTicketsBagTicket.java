@@ -34,12 +34,19 @@ import com.openbravo.pos.printer.*;
 import com.openbravo.basic.BasicException;
 import com.openbravo.data.gui.JMessageDialog;
 import com.openbravo.pos.customers.DataLogicCustomers;
+import com.openbravo.pos.forms.DataLogicSales;
 import com.openbravo.pos.scripting.ScriptEngine;
 import com.openbravo.pos.scripting.ScriptException;
 import com.openbravo.pos.scripting.ScriptFactory;
 import com.openbravo.pos.forms.DataLogicSystem;
 import com.openbravo.pos.panels.JTicketsFinder;
+import com.openbravo.pos.payment.JPaymentSelect;
+import com.openbravo.pos.payment.JPaymentSelectCustomer;
+import com.openbravo.pos.payment.PaymentInfo;
+import com.openbravo.pos.payment.PaymentInfoTicket;
 import com.openbravo.pos.ticket.FindTicketsInfo;
+import java.util.Date;
+import java.util.List;
 
 public class JTicketsBagTicket extends JTicketsBag {
     
@@ -186,18 +193,7 @@ public class JTicketsBagTicket extends JTicketsBag {
         m_jTicketEditor.reset();
         m_jTicketEditor.activate();
 
-        jDebt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/apply.png")));
-        jDebt.setEnabled(true);
-        try {
-           currentCustomer = m_ticket.getCustomer();
-
-           if (currentCustomer.getCurdebt()>0.0) {
-                jDebt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/button_cancel.png")));
-                m_jRendu.setEnabled(false);
-            }
-        } catch (NullPointerException ne) {
-           // logger.info("**************************************************************************");
-        }
+        checkDebt();
     }
     
     private void printTicket() {
@@ -514,7 +510,66 @@ private void m_jRenduActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 }//GEN-LAST:event_m_jRenduActionPerformed
 
 private void jDebtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jDebtActionPerformed
+       
+        JPaymentSelect paymentdialog ;
+        paymentdialog = JPaymentSelectCustomer.getDialog(this);
+        paymentdialog.init(m_App);
+        paymentdialog.setPrintSelected(true);
 
+        if (paymentdialog.showDialog(currentCustomer.getCurdebt(), currentCustomer, null, null)) {
+
+            DataLogicSales dlsales = (DataLogicSales) m_App.getBean("com.openbravo.pos.forms.DataLogicSales");
+            // Save the ticket
+            TicketInfo ticket = new TicketInfo();
+            ticket.setTicketType(TicketInfo.RECEIPT_PAYMENT);
+
+            List<PaymentInfo> payments = paymentdialog.getSelectedPayments();
+
+            double total = 0.0;
+            for (PaymentInfo p : payments) {
+                total += p.getTotal();
+            }
+
+            payments.add(new PaymentInfoTicket(-total, "debtpaid"));
+
+            ticket.setPayments(payments);
+            ticket.setUser(m_App.getAppUserView().getUser().getUserInfo());
+            ticket.setActiveCash(m_App.getActiveCashIndex());
+            ticket.setDate(new Date());
+            ticket.setCustomer(currentCustomer);
+            ticket.setDateReturn(paymentdialog.getrDate());
+
+            try {
+                dlsales.saveTicket(ticket, m_App.getInventoryLocation());
+            } catch (BasicException eData) {
+                MessageInf msg = new MessageInf(MessageInf.SGN_NOTICE, AppLocal.getIntString("message.nosaveticket"), eData);
+                msg.show(this);
+            }
+
+
+            // reload customer
+            CustomerInfoExt c;
+            try {
+                c = dlsales.loadCustomerExt(currentCustomer.getId());
+                if (c == null) {
+                    MessageInf msg = new MessageInf(MessageInf.SGN_WARNING, AppLocal.getIntString("message.cannotfindcustomer"));
+                    msg.show(this);
+                } else {
+ //                   editCustomer(c);
+                }
+            } catch (BasicException ex) {
+                c = null;
+                MessageInf msg = new MessageInf(MessageInf.SGN_WARNING, AppLocal.getIntString("message.cannotfindcustomer"), ex);
+                msg.show(this);
+            }
+
+            checkDebt();
+
+//            printTicket(paymentdialog.isPrintSelected()
+//                    ? "Printer.CustomerPaid"
+//                    : "Printer.CustomerPaid2",
+//                    ticket, c);
+        }
 }//GEN-LAST:event_jDebtActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -540,5 +595,21 @@ private void jDebtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
     private com.openbravo.editor.JEditorIntegerPositive m_jTicketEditor;
     private javax.swing.JLabel m_jTicketId;
     // End of variables declaration//GEN-END:variables
+
+    private void checkDebt() {
+        jDebt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/apply.png")));
+        jDebt.setEnabled(false);
+        try {
+           currentCustomer = m_ticket.getCustomer();
+
+           if (currentCustomer.getCurdebt()>0.0) {
+                jDebt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/button_cancel.png")));
+                m_jRendu.setEnabled(false);
+                jDebt.setEnabled(true);
+            }
+        } catch (NullPointerException ne) {
+           logger.info("**************************************************************************");
+        }
+    }
     
 }
