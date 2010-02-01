@@ -46,7 +46,7 @@ import java.util.Map;
  */
 public abstract class JPaymentSelect extends javax.swing.JDialog 
                             implements JPaymentNotifier {
-    
+
     private PaymentInfoList m_aPaymentInfo;
     private boolean printselected;
     
@@ -117,14 +117,17 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         
         m_dTotal = total;
         m_rDate = datereturn;
-        m_isPressing = isPressing;
+        if (isPressing==null)
+           m_isPressing = false;
+        else
+            m_isPressing = isPressing;
         
         this.customerext = customerext;        
 
         m_jButtonPrint.setSelected(printselected);
         m_jTotalEuros.setText(Formats.CURRENCY.formatValue(new Double(m_dTotal)));
 
-        if (isPressing) {
+        if (m_isPressing) {
             jReturnDate.setEnabled(true);
             btnDateStart.setEnabled(true);
             jCancelDate.setEnabled(true);
@@ -188,7 +191,6 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         }
     }
     
-    
     public interface JPaymentCreator {
         public JPaymentInterface createJPayment();
         public String getKey();
@@ -249,7 +251,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         public String getLabelKey() { return "tab.debt"; }
         public String getIconKey() { return "/com/openbravo/images/kdmconfig32.png"; }
     }   
-        
+
     public class JPaymentCashRefundCreator implements JPaymentCreator {
         public JPaymentInterface createJPayment() {
             return new JPaymentRefund(JPaymentSelect.this, "cashrefund");

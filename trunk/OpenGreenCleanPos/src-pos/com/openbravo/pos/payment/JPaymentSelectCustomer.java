@@ -49,8 +49,8 @@ public class JPaymentSelectCustomer extends JPaymentSelect {
         } else {
             return new JPaymentSelectCustomer((Dialog) window, true, parent.getComponentOrientation());
         } 
-    } 
-    
+    }
+   
     protected void addTabs() {
         
         addTabPayment(new JPaymentSelect.JPaymentCashCreator());
