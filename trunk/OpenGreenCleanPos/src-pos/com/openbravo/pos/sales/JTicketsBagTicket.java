@@ -112,7 +112,8 @@ public class JTicketsBagTicket extends JTicketsBag {
         m_jEdit.setVisible(m_App.getAppUserView().getUser().hasPermission("sales.EditTicket"));
         m_jRefund.setVisible(m_App.getAppUserView().getUser().hasPermission("sales.RefundTicket"));
         m_jPrint.setVisible(m_App.getAppUserView().getUser().hasPermission("sales.PrintTicket"));
-
+        
+        jDebt.setVisible(m_App.getAppUserView().getUser().hasPermission("sales.RefundTicket"));
         m_jRendu.setVisible(m_App.getAppUserView().getUser().hasPermission("sales.RefundTicket"));
 
         jDebt.setIcon(null);
