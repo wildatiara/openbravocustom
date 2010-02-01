@@ -564,7 +564,10 @@ private void jDebtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
             }
 
             checkDebt();
-
+            m_jRendu.setEnabled(
+                    m_ticket != null
+                    && (m_ticket.getTicketType() == TicketInfo.RECEIPT_NORMAL || m_ticket.getTicketType() == TicketInfo.RECEIPT_REFUND)
+                    && (m_ticket.isPickable()));
 //            printTicket(paymentdialog.isPrintSelected()
 //                    ? "Printer.CustomerPaid"
 //                    : "Printer.CustomerPaid2",
