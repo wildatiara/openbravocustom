@@ -81,9 +81,10 @@ public class CustomerInfo implements Serializable {
     
     @Override
     public String toString() {
-        if (this.curdebt != null)
-            return "!!! "+getName();
-        else
+        if (this.curdebt != null) {
+            
+            return getName()+"    ! "+getcurDebt()+" !";
+        } else
             return getName();
     }
 
