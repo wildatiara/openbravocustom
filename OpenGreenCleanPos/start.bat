@@ -2,7 +2,7 @@
 
 REM    GreenPressing POS is a point of sales application designed for touch screens.
 REM    Copyright (C) 2008-2009 Openbravo, S.L.
-REM    http://sourceforge.net/projects/openbravopos
+REM    http://code.google.com/p/openbravocustom/
 REM
 REM    This file is part of GreenPressing POS.
 REM
