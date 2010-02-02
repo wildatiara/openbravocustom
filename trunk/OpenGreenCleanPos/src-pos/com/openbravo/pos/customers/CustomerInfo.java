@@ -33,6 +33,7 @@ public class CustomerInfo implements Serializable {
     protected String searchkey;
     protected String taxid;
     protected String name;
+    protected String curdebt;
     
     /** Creates a new instance of UserInfoBasic */
     public CustomerInfo(String id) {
@@ -80,7 +81,18 @@ public class CustomerInfo implements Serializable {
     
     @Override
     public String toString() {
-        return getName();
-    }    
+        if (this.curdebt != null)
+            return "!!! "+getName();
+        else
+            return getName();
+    }
+
+    void setCurdebt(String curdebt) {
+        this.curdebt = curdebt;
+    }
+
+    String getcurDebt() {
+        return this.curdebt;
+    }
 }
 

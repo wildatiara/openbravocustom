@@ -603,7 +603,7 @@ private void jDebtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:e
            currentCustomer = m_ticket.getCustomer();
 
            if (currentCustomer.getCurdebt()>0.0) {
-                jDebt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/button_cancel.png")));
+                jDebt.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/openbravo/images/indebt.png")));
                 m_jRendu.setEnabled(false);
                 jDebt.setEnabled(true);
             }
