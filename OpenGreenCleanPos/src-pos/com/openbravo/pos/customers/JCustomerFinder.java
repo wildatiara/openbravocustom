@@ -30,6 +30,8 @@ import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.Window;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 /**
@@ -40,7 +42,9 @@ public class JCustomerFinder extends javax.swing.JDialog implements EditorCreato
 
     private CustomerInfo selectedCustomer;
     private ListProvider lpr;
-   
+
+    private static Logger logger = Logger.getLogger("com.openbravo.pos.customers.JCustomerFinder");
+
     /** Creates new form JCustomerFinder */
     private JCustomerFinder(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -88,10 +92,12 @@ public class JCustomerFinder extends javax.swing.JDialog implements EditorCreato
         lpr = new ListProviderCreator(dlCustomers.getCustomerList(), this);
 
         jListCustomers.setCellRenderer(new CustomerRenderer());
-
+       
         getRootPane().setDefaultButton(jcmdOK);
 
         selectedCustomer = null;
+
+        executeSearch();
     }
     
     public void search(CustomerInfo customer) {
@@ -124,6 +130,7 @@ public class JCustomerFinder extends javax.swing.JDialog implements EditorCreato
     public void executeSearch() {
         try {
             jListCustomers.setModel(new MyListData(lpr.loadData()));
+            
             if (jListCustomers.getModel().getSize() > 0) {
                 jListCustomers.setSelectedIndex(0);
             }
@@ -363,7 +370,7 @@ public class JCustomerFinder extends javax.swing.JDialog implements EditorCreato
         getContentPane().add(jPanel3, java.awt.BorderLayout.CENTER);
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-613)/2, (screenSize.height-610)/2, 613, 610);
+        setBounds((screenSize.width-613)/2, (screenSize.height-571)/2, 613, 571);
     }// </editor-fold>//GEN-END:initComponents
     private void jcmdOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcmdOKActionPerformed
 
