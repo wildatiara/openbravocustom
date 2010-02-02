@@ -33,7 +33,7 @@ public class PropertyUtils {
 
     private Properties m_propsconfig;
     private File configFile;
-    private final String APP_ID = "openbravopos";
+    private final String APP_ID = "greenpressingpos";
 
     public PropertyUtils() {
         init(getDefaultConfig());
