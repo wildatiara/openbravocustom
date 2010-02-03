@@ -60,7 +60,7 @@ public class ExternalSalesHelper {
     public ExternalSalesHelper(DataLogicSystem dlsystem) throws BasicException, ServiceException, MalformedURLException {
         
         
-        Properties prop = dlsystem.getResourceAsProperties("openbravo.properties");
+        Properties prop = dlsystem.getResourceAsProperties("greenpressingpos.properties");
         if (prop == null) {
             throw new BasicException(AppLocal.getIntString("message.propsnotdefined"));            
         } else {
