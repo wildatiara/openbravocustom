@@ -498,7 +498,16 @@ public class JTicketsBagTicket extends JTicketsBag {
     }//GEN-LAST:event_m_jKeysActionPerformed
 
 private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        JTicketsFinder finder = JTicketsFinder.getReceiptFinder(this, m_dlSales, dlCustomers);
+     if (!haschanged) {
+            int res = JOptionPane.showConfirmDialog(this, AppLocal.getIntString("message.wannasave"), AppLocal.getIntString("title.editor"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (res == JOptionPane.OK_OPTION) {
+
+            } else {
+                return;
+            }
+        } 
+
+    JTicketsFinder finder = JTicketsFinder.getReceiptFinder(this, m_dlSales, dlCustomers);
         finder.setVisible(true);
         FindTicketsInfo selectedTicket = finder.getSelectedCustomer();
         if (selectedTicket == null) {
