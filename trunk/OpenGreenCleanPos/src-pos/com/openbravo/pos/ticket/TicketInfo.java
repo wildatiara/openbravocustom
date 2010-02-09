@@ -32,6 +32,7 @@ import com.openbravo.pos.customers.CustomerInfoExt;
 import com.openbravo.pos.payment.PaymentInfoMagcard;
 import com.openbravo.pos.util.StringUtils;
 import java.util.logging.Logger;
+import com.openbravo.pos.util.tsUUID;
 
 /**
  *
@@ -61,10 +62,15 @@ public class TicketInfo implements SerializableRead, Externalizable {
     private String m_sResponse;
     private java.util.Date m_DateReturn;
     private java.util.Date m_DateRendu;
+    
+    private static Logger logger = Logger.getLogger("com.openbravo.pos.ticket.TicketInfo");
 
     /** Creates new TicketModel */
     public TicketInfo() {
-        m_sId = UUID.randomUUID().toString();
+        m_sId = tsUUID.randomUUID().toString();
+
+        logger.info(tsUUID.fromString(m_sId).getDate().toString());
+
         tickettype = RECEIPT_NORMAL;
         m_iTicketId = 0; // incrementamos
         m_dDate = new Date();

@@ -66,6 +66,8 @@ public class JTicketsBagTicket extends JTicketsBag {
 
     private CustomerInfoExt currentCustomer;
 
+    private boolean haschanged;
+
     private static Logger logger = Logger.getLogger("com.openbravo.pos.sales.JTicketsBagTicket");
 
     /** Creates new form JTicketsBagTicket */
@@ -91,6 +93,7 @@ public class JTicketsBagTicket extends JTicketsBag {
         
         // Este deviceticket solo tiene una impresora, la de pantalla
         m_jPanelTicket.add(m_TP.getDevicePrinter("1").getPrinterComponent(), BorderLayout.CENTER);
+        haschanged = false;
     }
     
     public void activate() {
@@ -128,7 +131,18 @@ public class JTicketsBagTicket extends JTicketsBag {
         // precondicion es que tenemos ticket activado aqui y ticket en el panel        
         m_ticket = null;   
         m_ticketCopy = null;
-        return true;       
+
+
+        if (!haschanged) {
+            int res = JOptionPane.showConfirmDialog(this, AppLocal.getIntString("message.wannasave"), AppLocal.getIntString("title.editor"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (res == JOptionPane.OK_OPTION) {
+                return true;
+            } else {
+                return false;
+            }
+        } 
+        return true;
+       
         // postcondicion es que no tenemos ticket activado ni ticket en el panel
     }
     
@@ -206,12 +220,13 @@ public class JTicketsBagTicket extends JTicketsBag {
                     m_ticket != null
                     && (m_ticket.getTicketType() == TicketInfo.RECEIPT_NORMAL || m_ticket.getTicketType() == TicketInfo.RECEIPT_REFUND)
                     && m_dlSales.isCashActive(m_ticket.getActiveCash()));
-            m_jRendu.setEnabled(
-                    m_ticket != null && (m_ticket.isPickable()));
+           haschanged=( m_ticket == null || (!m_ticket.isPickable()) );
+            m_jRendu.setEnabled(!haschanged);
 
         } catch (BasicException e) {
             m_jEdit.setEnabled(false);
             m_jRendu.setEnabled(false);
+            haschanged = true;
         }
         m_jRefund.setEnabled(m_ticket != null && m_ticket.getTicketType() == TicketInfo.RECEIPT_NORMAL);
         m_jPrint.setEnabled(m_ticket != null);
@@ -501,6 +516,7 @@ private void m_jRenduActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             m_dlSales.setRendu(m_ticket.getId());
             printTicket();
             m_jRendu.setEnabled(false);
+            haschanged=true;
             
         } catch (BasicException ex) {
             Logger.getLogger(JTicketsBagTicket.class.getName()).log(Level.SEVERE, null, ex);
