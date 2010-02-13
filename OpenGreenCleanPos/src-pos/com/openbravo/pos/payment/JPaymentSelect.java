@@ -39,6 +39,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -121,7 +122,13 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
            m_isPressing = false;
         else
             m_isPressing = isPressing;
-        
+
+        if (m_isPressing && customerext==null) {
+            int res = JOptionPane.showConfirmDialog(this, AppLocal.getIntString("message.nocustomernodebt"), AppLocal.getIntString("title.editor"), JOptionPane.OK_CANCEL_OPTION, JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+          
+
         this.customerext = customerext;        
 
         m_jButtonPrint.setSelected(printselected);
@@ -324,7 +331,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
     private void setStatusPressing(boolean isPressing) {
          //       logger.info(" CALL setStatus : "+isPositive+" "+isComplete+" "+m_isPressing);
         if (m_rDate==null && m_isPressing)
-          setStatusPanel(m_isPositive, m_isComplete && isPressing);
+          setStatusPanel(m_isPositive, m_isComplete && isPressing );
         else
           setStatusPanel(m_isPositive, m_isComplete);
     }
@@ -574,7 +581,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
 
 
                 cal.setTime(new Date(tomorrow.getYear(),tomorrow.getMonth(),tomorrow.getDate()));
-                cal.add(Calendar.DATE, 1);
+                cal.add(Calendar.DATE, 2);
                 if (cal.DAY_OF_WEEK == cal.SUNDAY)
                    cal.add(Calendar.DATE, 1);
 
@@ -582,14 +589,16 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
                 
                 date = (Date) cal.getTime();
 
-           
+
         } 
 
         date = JCalendarDialog.showCalendarTimeHours(this, date);
         if (date != null) {
+
             jReturnDate.setText(Formats.TIMESTAMP.formatValue(date));
             m_rDate=date;
-            setStatusPressing(true);
+
+              setStatusPressing(true);
         } else {
             setStatusPressing(false);
         }
