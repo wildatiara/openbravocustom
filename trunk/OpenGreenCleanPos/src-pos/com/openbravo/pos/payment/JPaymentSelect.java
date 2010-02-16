@@ -264,7 +264,7 @@ public abstract class JPaymentSelect extends javax.swing.JDialog
         }
         public String getKey() { return "payment.credit"; }
         public String getLabelKey() { return "tab.credit"; }
-        public String getIconKey() { return "/com/openbravo/images/kdmconfig32.png"; }
+        public String getIconKey() { return "/com/openbravo/images/kdmconfigC32.png"; }
     }
 
     public class JPaymentCashRefundCreator implements JPaymentCreator {
