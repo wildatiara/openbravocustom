@@ -37,13 +37,13 @@
             <text align="center" length="42">GREEN AND CLEAN</text>
         </line>
         <line>
-            <text align="center" length="42">1411 Chaussée de waterloo</text>
+            <text align="center" length="42">Square du Vieux Tilleul 8</text>
         </line>
         <line>
-            <text align="center" length="42">1180 Uccle</text>
+            <text align="center" length="42">1050 Bruxelles</text>
         </line>
         <line>
-            <text align="center" length="42">Tel : 02/375.06.79</text>
+            <text align="center" length="42">Tel : 02/660.25.00</text>
         </line>
         #if (${ticket.ticketType} == 0)
         <line>
